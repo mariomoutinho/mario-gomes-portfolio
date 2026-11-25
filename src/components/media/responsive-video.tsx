@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { AudioLines, Pause, Play, Volume2 } from 'lucide-react';
+﻿import { useEffect, useRef, useState } from 'react';
+import { Pause, Play } from 'lucide-react';
 import styles from './responsive-video.module.css';
 export interface VideoSource {
   src: string;
@@ -17,7 +17,6 @@ export function ResponsiveVideo({
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [failed, setFailed] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
@@ -27,9 +26,10 @@ export function ResponsiveVideo({
     setInteraction((value) => value + 1);
   };
   useEffect(() => {
-    const timer = window.setTimeout(() => setControlsVisible(false), 3000);
+    if (!playing) return;
+    const timer = window.setTimeout(() => setControlsVisible(false), 1000);
     return () => window.clearTimeout(timer);
-  }, [interaction]);
+  }, [playing, interaction]);
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
@@ -46,8 +46,11 @@ export function ResponsiveVideo({
       !reduced.matches &&
       !connection?.saveData &&
       !connection?.effectiveType?.includes('2g')
-    )
+    ) {
+      video.muted = false;
+      // Bloqueio de autoplay com som mantém a capa e o botão disponíveis.
       void video.play().catch(() => {});
+    }
     const pauseHidden = () => {
       if (document.hidden) video.pause();
     };
@@ -67,18 +70,23 @@ export function ResponsiveVideo({
       <div
         className={styles.stage}
         data-controls-visible={controlsVisible}
-        onPointerDown={revealControls}
+        onPointerDown={(event) => {
+          if (event.target === ref.current) revealControls();
+        }}
       >
         <video
           ref={ref}
           className={source.rotateToLandscape ? styles.rotated : undefined}
           poster={source.poster}
-          muted={muted}
+          muted={false}
           playsInline
           loop
           preload="none"
           onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
+          onPause={() => {
+            setPlaying(false);
+            setControlsVisible(true);
+          }}
           onError={() => setFailed(true)}
           onTimeUpdate={() => {
             const video = ref.current;
@@ -90,33 +98,26 @@ export function ResponsiveVideo({
           <source src={source.src} />
         </video>
         {failed ? (
-          <p>Vídeo indisponível. {source.description}</p>
+          <p className={styles.error} role="status">
+            Vídeo indisponível. {source.description}
+          </p>
         ) : (
-          <div className={styles.controls}>
-            <button
-              aria-label={playing ? 'Pausar vídeo' : 'Reproduzir vídeo'}
-              onClick={() => {
-                const video = ref.current;
-                if (!video) return;
-                if (playing) video.pause();
-                else void video.play().catch(() => setFailed(true));
-              }}
-            >
-              {playing ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
-              <span>{playing ? 'Pausar' : 'Ver vídeo'}</span>
-            </button>
-            <button
-              aria-label={muted ? 'Ativar som' : 'Desativar som'}
-              aria-pressed={!muted}
-              onClick={() => setMuted(!muted)}
-            >
-              {muted ? <AudioLines aria-hidden="true" /> : <Volume2 aria-hidden="true" />}
-              <span className={styles.desktopLabel}>
-                {muted ? 'Clique para ouvir o som' : 'Som ativado'}
-              </span>
-              <span className={styles.mobileLabel}>{muted ? 'Ouvir o som' : 'Som ativado'}</span>
-            </button>
-          </div>
+          <button
+            className={styles.control}
+            aria-label={playing ? 'Pausar vídeo' : 'Reproduzir vídeo com som'}
+            onClick={() => {
+              const video = ref.current;
+              if (!video) return;
+              revealControls();
+              if (!video.paused) video.pause();
+              else {
+                video.muted = false;
+                void video.play().catch(() => setFailed(true));
+              }
+            }}
+          >
+            {playing ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
+          </button>
         )}
         <progress
           className={styles.progress}

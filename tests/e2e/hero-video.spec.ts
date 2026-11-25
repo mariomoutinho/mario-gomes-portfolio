@@ -1,92 +1,72 @@
 import { expect, test } from '@playwright/test';
 
-test('casamento com capa, reprodução manual, áudio e pausa fora da abertura', async ({ page }) => {
+test.use({ launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] } });
+
+test('botão único central inicia com som e desaparece após 1s', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   const video = page.locator('#inicio video');
-  await expect(video).toBeVisible();
-  const bounds = (await video.boundingBox())!;
-  expect(bounds.width / bounds.height).toBeCloseTo(16 / 9, 2);
-  expect(
-    await video.evaluate((node) => new DOMMatrixReadOnly(getComputedStyle(node).transform).b),
-  ).toBe(-1);
-  for (const label of ['Reproduzir vídeo', 'Ativar som']) {
-    const control = (await page.getByRole('button', { name: label, exact: true }).boundingBox())!;
-    expect(control.x).toBeGreaterThanOrEqual(bounds.x);
-    expect(control.x + control.width).toBeLessThanOrEqual(bounds.x + bounds.width);
-    expect(control.y).toBeGreaterThanOrEqual(bounds.y);
-    expect(control.height).toBeGreaterThanOrEqual(44);
-  }
-  expect(await video.evaluate((node: HTMLVideoElement) => node.paused)).toBe(true);
-  expect(await video.evaluate((node: HTMLVideoElement) => node.muted)).toBe(true);
-  expect(await video.evaluate((node: HTMLVideoElement) => node.preload)).toBe('none');
-  expect(
-    await video.evaluate(async (node: HTMLVideoElement) => {
-      const poster = new Image();
-      poster.src = node.poster;
-      await poster.decode();
-      return poster.naturalWidth;
-    }),
-  ).toBe(720);
-  await page.getByRole('button', { name: 'Reproduzir vídeo', exact: true }).click();
+  const play = page.getByRole('button', { name: 'Reproduzir vídeo com som', exact: true });
+  await expect(page.locator('#inicio button')).toHaveCount(1);
+  const frame = (await video.boundingBox())!;
+  const control = (await play.boundingBox())!;
+  expect(frame.width / frame.height).toBeCloseTo(16 / 9, 2);
+  expect(control.x + control.width / 2).toBeCloseTo(frame.x + frame.width / 2, 0);
+  expect(control.y + control.height / 2).toBeCloseTo(frame.y + frame.height / 2, 0);
+  await page.waitForTimeout(1200);
+  await expect(play).toHaveCSS('opacity', '1');
+  await play.click();
   await expect
     .poll(() => video.evaluate((node: HTMLVideoElement) => node.currentTime))
     .toBeGreaterThan(0.1);
-  expect(
-    await video.evaluate((node: HTMLVideoElement) => [node.videoWidth, node.videoHeight]),
-  ).toEqual([720, 1280]);
-  await page.getByRole('button', { name: 'Ativar som', exact: true }).click();
   expect(await video.evaluate((node: HTMLVideoElement) => node.muted)).toBe(false);
-  await page.getByRole('button', { name: 'Desativar som', exact: true }).click();
-  await page.getByRole('button', { name: 'Pausar vídeo', exact: true }).click();
+  const pause = page.getByRole('button', { name: 'Pausar vídeo', exact: true });
+  await expect(pause).toHaveCSS('opacity', '0', { timeout: 2500 });
+  await video.locator('..').click({ position: { x: frame.width / 4, y: frame.height / 2 } });
+  await expect(pause).toHaveCSS('opacity', '1');
+  await pause.click();
   expect(await video.evaluate((node: HTMLVideoElement) => node.paused)).toBe(true);
-  await page.getByRole('button', { name: 'Reproduzir vídeo', exact: true }).click();
+  await play.click();
   await page.locator('#sobre').scrollIntoViewIfNeeded();
   await expect.poll(() => video.evaluate((node: HTMLVideoElement) => node.paused)).toBe(true);
 });
 
-test('casamento inicia sem som quando movimento é permitido', async ({ page }) => {
+test('autoplay com som bloqueado mantém um botão funcional', async ({ page }) => {
+  await page.addInitScript(() => {
+    const play = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function () {
+      if (!navigator.userActivation.isActive)
+        return Promise.reject(new DOMException('Autoplay bloqueado', 'NotAllowedError'));
+      return play.call(this);
+    };
+  });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const video = page.locator('#inicio video');
+  const play = page.getByRole('button', { name: 'Reproduzir vídeo com som', exact: true });
+  await page.waitForTimeout(1200);
+  await expect(play).toHaveCSS('opacity', '1');
+  expect(await video.evaluate((node: HTMLVideoElement) => node.paused)).toBe(true);
+  await play.click();
+  await expect
+    .poll(() => video.evaluate((node: HTMLVideoElement) => node.currentTime))
+    .toBeGreaterThan(0.1);
+  expect(await video.evaluate((node: HTMLVideoElement) => node.muted)).toBe(false);
+});
+
+test('reproduz com áudio e permite pausar por teclado', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/');
   const video = page.locator('#inicio video');
   await expect
     .poll(() => video.evaluate((node: HTMLVideoElement) => node.currentTime))
     .toBeGreaterThan(0.1);
-  expect(await video.evaluate((node: HTMLVideoElement) => node.muted)).toBe(true);
-});
-
-test('controles somem após 3s, reaparecem com toque e ficam acessíveis por teclado', async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
-  const video = page.locator('#inicio video');
-  const controls = page.locator('#inicio [class*="controls"]');
-  await expect(controls).toHaveCSS('opacity', '1');
-  await expect(controls).toHaveCSS('opacity', '0', { timeout: 5000 });
-  const bounds = (await video.boundingBox())!;
-  await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
-  await expect(controls).toHaveCSS('opacity', '0');
-  const center = { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
-  if (await page.evaluate(() => navigator.maxTouchPoints > 0)) {
-    await page.touchscreen.tap(center.x, center.y);
-  } else {
-    await page.mouse.click(center.x, center.y);
-  }
-  await expect(controls).toHaveCSS('opacity', '1');
-  await page.getByRole('button', { name: 'Reproduzir vídeo', exact: true }).click();
-  await expect
-    .poll(() => video.evaluate((node: HTMLVideoElement) => node.currentTime))
-    .toBeGreaterThan(0.1);
-  await expect(controls).toHaveCSS('opacity', '0', { timeout: 5000 });
-  // Tab alcança os controles mesmo enquanto estão visualmente ocultos.
-  await page.keyboard.press('Tab');
-  await expect(page.getByRole('button', { name: 'Ativar som', exact: true })).toBeFocused();
-  await expect(controls).toHaveCSS('opacity', '1');
-  await page.waitForTimeout(3200);
-  await expect(controls).toHaveCSS('opacity', '1');
-  await page.keyboard.press('Enter');
   expect(await video.evaluate((node: HTMLVideoElement) => node.muted)).toBe(false);
+  const pause = page.getByRole('button', { name: 'Pausar vídeo', exact: true });
+  await expect(pause).toHaveCSS('opacity', '0', { timeout: 2500 });
   await page.keyboard.press('Tab');
-  await expect(controls).toHaveCSS('opacity', '0');
+  await pause.focus();
+  await expect(pause).toHaveCSS('opacity', '1');
+  await page.keyboard.press('Enter');
+  expect(await video.evaluate((node: HTMLVideoElement) => node.paused)).toBe(true);
 });

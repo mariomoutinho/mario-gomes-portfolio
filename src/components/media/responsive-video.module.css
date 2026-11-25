@@ -25,56 +25,48 @@
   max-inline-size: none;
   transform: translate(-50%, -50%) rotate(-90deg);
 }
-.controls {
+.control {
   position: absolute;
   z-index: 1;
-  top: 12px;
-  left: 12px;
-  right: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: clamp(56px, 6vw, 76px);
+  height: clamp(56px, 6vw, 76px);
+  border-radius: 50%;
+  border: 1px solid rgb(171 200 255 / 45%);
+  background: rgb(8 13 22 / 65%);
+  color: #fff;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
 }
-.stage[data-controls-visible='false'] .controls {
+.stage[data-controls-visible='false'] .control {
   opacity: 0;
   pointer-events: none;
 }
-.stage:has(button:focus-visible) .controls {
-  opacity: 1;
-  pointer-events: auto;
-}
-.controls button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 12px;
-  border-radius: 999px;
-  border: 1px solid rgb(255 255 255 / 20%);
-  background: rgb(8 13 22 / 78%);
-  color: #fff;
-  backdrop-filter: blur(16px);
-  font: 600 11px/1.3 var(--font-main);
-  cursor: pointer;
-}
-.controls button:hover {
-  background: rgb(20 32 52 / 92%);
-  border-color: #abc8ff;
-}
-.controls button:focus-visible {
+.control:focus-visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
   outline: 2px solid #abc8ff;
-  outline-offset: 3px;
+  outline-offset: 4px;
 }
-.controls svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  color: #abc8ff;
+.control:hover {
+  background: rgb(20 32 52 / 85%);
 }
-.desktopLabel {
-  display: none;
+.control svg {
+  width: 24px;
+  height: 24px;
+}
+.error {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  padding: 24px;
+  background: #08090de6;
+  color: #fff;
 }
 .progress {
   position: absolute;
@@ -103,21 +95,4 @@
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
-}
-@media (min-width: 768px) {
-  .controls {
-    top: 20px;
-    left: 20px;
-    right: 20px;
-  }
-  .controls button {
-    padding-inline: 16px;
-    font-size: 12px;
-  }
-  .desktopLabel {
-    display: inline;
-  }
-  .mobileLabel {
-    display: none;
-  }
 }
