@@ -162,3 +162,11 @@ Autorização explícita do usuário para tornar o portfólio/repositório públ
 - `npm run test:e2e`: 46 execuções aprovadas em aproximadamente 2 minutos, desktop e emulação mobile. Mantidas as verificações de rede, console, mídia, responsividade, menu, foto, controles e movimento.
 
 A mudança de visibilidade e a ativação do Pages usam a autenticação local do Git Credential Manager; nenhuma credencial foi inserida no código ou nos arquivos versionados. Resultado do deploy remoto e homologação pública serão confirmados na entrega. O site ainda possui imagens ilustrativas claramente identificadas e contato comercial pendente; a publicação não transforma esses recursos em projetos reais nem concede licença geral de código/mídia.
+
+### Resultado remoto e homologação pública
+
+Deploy do commit `6e5b84a` concluído com sucesso no workflow https://github.com/mariomoutinho/mario-gomes-portfolio/actions/runs/45645469294. O primeiro job de publicação foi recusado pela política padrão do ambiente github-pages, que não permitia feat/cinematic-landing. Inspecionada a configuração (somente política de branches); foi acrescentada especificamente a branch de implementação permitida, mantendo as demais regras. A repetição do job concluiu com sucesso, assim como o build e npm run check executados no Ubuntu do GitHub.
+
+Homologação em Chromium contra a URL pública, sem autenticação, em 390px e 1440px: HTTP 200; 13 imagens carregadas em cada viewport, nenhuma falha de imagem, fontes Manrope/IBM Plex Mono confirmadas, sem overflow horizontal ou erros de página/respostas HTTP. Menu mobile abriu e fechou por Escape. Capturas completas `.cache/pages-live-390.png` e `.cache/pages-live-1440.png` inspecionadas. A consulta pública da API confirmou private=false e has_pages=true. A fonte publicada corresponde ao site atual, sem merge na main.
+
+Site disponível em https://mariomoutinho.github.io/mario-gomes-portfolio/. O registro de validação posterior é enviado em commit somente de documentação com [skip ci], sem reconstruir o mesmo artefato. As próximas alterações normais na branch de implementação disparam publicação automática.
