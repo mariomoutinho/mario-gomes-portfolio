@@ -24,16 +24,9 @@
   }
 }
 .brand {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.06em;
-  line-height: 1.1;
-}
-.brand span {
-  display: block;
-  font: 9px/2 var(--font-mono);
-  letter-spacing: 0.16em;
-  color: var(--color-text-muted-light);
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 .desktop,
 .contact {
@@ -160,9 +153,6 @@
   .header {
     height: 80px;
     padding: 0 64px;
-  }
-  .brand {
-    font-size: 24px;
   }
   .toggle {
     display: none;

@@ -4,6 +4,7 @@ import { showreel, portrait } from '../data/media';
 import { ResponsiveVideo } from '../components/media/responsive-video';
 import { PortfolioSection } from '../sections/portfolio-section';
 import { Header } from '../components/layout/header';
+import { BrandLogo } from '../components/layout/brand-logo';
 import {
   CinematicAmbientLight,
   CinematicLightFlow,
@@ -201,7 +202,7 @@ export function App() {
       </main>
       <footer className={styles.footer}>
         <a href="#inicio">
-          Mário Gomes<span>EDIÇÃO DE VÍDEO</span>
+          <BrandLogo />
         </a>
         <p>Imagem. Ritmo. Intenção.</p>
         <a href="#inicio" className={styles.backTop}>

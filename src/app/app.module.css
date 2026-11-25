@@ -349,17 +349,6 @@
   align-items: center;
   border-top: 1px solid #ffffff1f;
 }
-.footer > a:first-child {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.05em;
-}
-.footer > a span {
-  display: block;
-  font: 9px/2 var(--font-mono);
-  letter-spacing: 0.1em;
-  color: #a7b2c7;
-}
 .footer p {
   font-size: 12px;
   color: #a7b2c7;

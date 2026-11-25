@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import styles from './header.module.css';
+import { BrandLogo } from './brand-logo';
 const links = [
   ['trabalhos', 'Trabalhos'],
   ['sobre', 'Sobre'],
@@ -36,7 +37,7 @@ export function Header() {
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <a className={styles.brand} href="#inicio" aria-label="Mário Gomes — início">
-        Mário Gomes<span>EDIÇÃO DE VÍDEO</span>
+        <BrandLogo />
       </a>
       <nav className={styles.desktop} aria-label="Principal">
         {links.map(([id, label]) => (
@@ -84,7 +85,7 @@ export function Header() {
       >
         <div className={styles.panelTop}>
           <span className={styles.brand}>
-            Mário Gomes<span>EDIÇÃO DE VÍDEO</span>
+            <BrandLogo />
           </span>
           <button aria-label="Fechar menu" onClick={close}>
             <X />

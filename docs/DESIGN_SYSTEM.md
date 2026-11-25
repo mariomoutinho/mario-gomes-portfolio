@@ -1,4 +1,4 @@
-﻿# Design system — implementação autorizada
+# Design system — implementação autorizada
 
 Especificação fornecida pelo usuário em 25/11/2026, reproduzida abaixo como fonte única da direção visual. A atualização Cinematic Portfolio Marquee, ao final deste documento, substitui exclusivamente as regras anteriores do Ato 03; as demais seções são preservadas.
 
@@ -8,11 +8,11 @@ Especificação fornecida pelo usuário em 25/11/2026, reproduzida abaixo como f
 - Composição mobile first, margens de 16/20/32/64px, conteúdo até 1280px e cortes entre superfícies claras e escuras.
 - Componentes: Header com dialog modal, CinematicAmbientLight, CinematicLightFlow, CinematicReveal, ResponsiveVideo, CinematicPortfolioMarquee, MarqueeTrack, PortfolioMediaCard, PortfolioVideoPlayer, MarqueeControls, ServiceAccordion, ProductionTimeline e RippleLink.
 - Movimento ambiental controlado por IntersectionObserver, visibilidade do documento, preferência de movimento reduzido e pausa global. Revelações executadas uma vez; conteúdo permanece disponível sem observer.
-- O retrato profissional fornecido pelo usuário está integrado à seção Sobre. Não há vídeos definitivos, marca ou contato no repositório. A atualização autoriza 12 imagens ilustrativas locais exclusivamente no portfólio; elas não representam trabalhos, clientes ou serviços de Mário Gomes. Os demais espaços permanecem pendentes.
+- O retrato profissional fornecido pelo usuário está integrado à seção Sobre. O vídeo de casamento e a logo MG fornecidos pelo usuário estão integrados; o contato comercial permanece pendente. A atualização autoriza 12 imagens ilustrativas locais exclusivamente no portfólio; elas não representam trabalhos, clientes ou serviços de Mário Gomes. Os demais espaços permanecem pendentes.
 - `src/data/media.ts` recebe showreel e fotografia; `src/data/portfolio.ts` centraliza os itens das esteiras, créditos e futuras fontes de vídeo; `src/data/site-content.ts` recebe serviços, etapas e WhatsApp. Somente edição de vídeo foi incluída como serviço, por ser a atividade fornecida no pedido. Etapas e textos do processo são provisórios e exigem validação profissional.
 - Sem vídeos definitivos, a página atual amplia imagens ilustrativas no modal acessível; não há parallax aplicado. O modal oferece vídeo nativo e legendas ao preencher videoSrc e captions. O player integrado está preparado para vídeo inline, mute, reprodução manual, pausa dos demais vídeos, progresso, poster e descrição textual. Autoplay só é tentado sem redução de movimento e sem conexão econômica/lenta detectada. Legendas precisam ser avaliadas por vídeo antes de integrar material com fala.
 - CTA final indisponível até informar WhatsApp real. Ripple e borda animada são implementados no link comercial que aparece ao configurar o número.
-- FAQ, ferramentas e prova social omitidos por ausência de conteúdo verificado. Logotipo substituído apenas pelo nome tipográfico permitido. Favicon de marca e imagem OG aguardam material aprovado; domínio, canonical, sitemap e indexação aguardam publicação autorizada.
+- FAQ, ferramentas e prova social omitidos por ausência de conteúdo verificado. Logo MG fornecida pelo usuário aplicada ao cabeçalho, menu mobile e rodapé, com apresentação clara por CSS sobre fundo escuro. Favicon de marca e imagem OG aguardam material aprovado; domínio, canonical, sitemap e indexação aguardam publicação autorizada.
 - Metas LCP/INP/CLS ainda não foram medidas; dependem também da mídia final. Não há declaração de conformidade completa de acessibilidade.
 
 ---

@@ -220,3 +220,11 @@ Removido o botão Pausar/Retomar movimento abaixo do vídeo, conforme solicitado
 Validação: npm run check aprovado (formatação, ESLint, 5 testes Vitest, TypeScript e build). npm run test:e2e aprovado: 52 execuções em 1,8 minuto em Chromium desktop e mobile, incluindo ausência do botão na abertura, controles do vídeo, menu, movimento reduzido, pausa das esteiras, teclado e gestos. Sem teste em aparelho físico. git diff --check aprovado.
 
 Push do commit 50943fa concluído; deploy https://github.com/mariomoutinho/mario-gomes-portfolio/actions/runs/45654591780 finalizado com sucesso. Verificação no endereço público em 390px e 1440px: HTTP 200, nenhum botão de movimento na abertura, Continue a história visível. Capturas .cache/hero-no-motion-toggle-{390,1440}.png. Registro documental enviado com [skip ci].
+
+## Integração da logo MG — 25/11/2026
+
+Logo fornecida pelo usuário em Logotipo MG para Editor de Vídeo.png (2172 × 724, PNG transparente) aplicada no cabeçalho, menu mobile e rodapé por um componente compartilhado BrandLogo. Asset canônico em public/media/brand/mario-gomes-logo.png; original da raiz preservado e ignorado para evitar duplicação no Git. A fonte é predominantemente escura: invert(1) hue-rotate(180deg) adapta a apresentação ao fundo escuro, sem modificar o PNG, mantendo detalhes em azul claro. Contêiner com proporção 6:1 e object-fit: cover recorta somente as margens transparentes verticais do arquivo; nenhum elemento da marca é cortado. Texto alternativo Mário Gomes — Editor de vídeo e link de início preservados.
+
+npm run check aprovado (formatação, lint, 5 testes Vitest, TypeScript e build). Prévia verificada em 320, 390, 1024 e 1440px: imagem decodificada com largura natural 2172px, sem overflow horizontal. Capturas .cache/logo-header-{320,390,1024,1440}.png e logo-footer-390.png inspecionadas; marca inteira e com contraste no fundo do site. Menu mobile também capturado após abrir e fechar por Escape. Suíte E2E completa do build será executada; sem teste em aparelho físico.
+
+Resultado final: npm run test:e2e aprovado, 52 execuções em 1,5 minuto em Chromium desktop e mobile. git diff --check aprovado. A logo é servida com BASE_URL para funcionar também na subpasta do GitHub Pages. Alteração enviada na branch de trabalho, com publicação pelo workflow existente.
