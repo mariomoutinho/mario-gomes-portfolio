@@ -124,3 +124,27 @@ Efeitos aplicados pela interface, sem editar a foto: máscara de revelação exi
 Teste de navegador acrescentado à suíte existente verifica carregamento real da foto, largura natural de 791px, proporção 791/788, ausência do texto provisório e transform desativado com movimento reduzido. Capturas da seção e do contexto completo são gravadas em test-results/**/portrait.png e portrait-context.png. Resultado final E2E e inspeção visual registrados abaixo.
 
 Resultado final: `npm run test:e2e` com PLAYWRIGHT_BROWSERS_PATH no cache do projeto terminou com saída 0, **46 execuções aprovadas em aproximadamente 1,4 minuto**, incluindo a fotografia em desktop e mobile. Capturas portrait.png de ambos os projetos inspecionadas: foto inteira em sua proporção original, composição com texto ao lado no desktop e abaixo no mobile. HTTP 200 confirmado no servidor de desenvolvimento. Nenhuma falha funcional ou overflow foi observado pela suíte. Sem validação em aparelho físico e sem nova medição de performance. Alteração registrada em commit local na branch feat/cinematic-landing, sem push, merge ou deploy.
+
+## Cinematic Portfolio Backlight — 25/11/2026
+
+Escopo de código restrito a src/sections/cinematic-portfolio-marquee.module.css. Sem alteração de dados, imagens, dimensões dos cards, espaçamento entre trilhas, velocidades/direções, controles, estrutura React ou outras seções. O refinamento acrescenta três fontes azuis estáticas atrás das esteiras, sombras ambientais e rim lighting discreto. Nenhuma biblioteca, loop JavaScript ou animação ambiental foi adicionada.
+
+As sombras possuem 56px de espaço vertical de pintura, compensado por margens negativas em flow-root; a faixa de conteúdo recebe os eventos, evitando que as áreas transparentes sobrepostas capturem toques. Permanecem o recorte e a máscara horizontal. A inspeção das primeiras capturas identificou um limite horizontal perceptível no fundo da camada luminosa; foi corrigido com máscara vertical de transparência antes da entrega.
+
+### Validação
+
+- Capturas anteriores preservadas em `.cache/backlight-before/marquee-{320,390,430,1440}.png`, provenientes da última suíte antes do refinamento. Comparação de composição visual, sem pressupor a mesma fase de movimento dos cards.
+- `npm run check`: saída 0; Prettier, ESLint sem avisos, 5 testes Vitest, TypeScript e build aprovados. Build final com fade: HTML 0,96 kB; CSS 25,47 kB (6,45 kB gzip); JS 251,94 kB (79,54 kB gzip).
+- `npm run test:e2e`: saída 0, 46 execuções aprovadas em aproximadamente 1,9 minuto antes do ajuste final da máscara vertical. Confirma dimensões e espaçamento preservados, velocidades, sentidos e continuidade, pausa, teclado, foco, preferências de movimento, toques horizontais e rolagem vertical, foto e demais seções.
+- A suíte específica de portfólio foi repetida no build final após a correção da máscara; resultado e inspeção das capturas registrados abaixo.
+- Sem teste em aparelho físico ou medição de FPS, consumo, LCP/INP/CLS. A mudança não acrescenta processamento JavaScript por frame; não foram presumidas métricas de desempenho.
+
+### Destino GitHub autorizado
+
+O usuário autorizou expressamente criar `mariomoutinho/mario-gomes-portfolio` como privado e realizar o push. O repositório foi criado via API com auto_init=false, após verificar a conta autenticada; privacidade confirmada pela resposta. Credencial mantida somente em memória pelo Git Credential Manager, sem inclusão em arquivos ou logs. Origin configurado para https://github.com/mariomoutinho/mario-gomes-portfolio.git e acesso verificado com `git ls-remote --heads origin` (saída 0, sem branches no destino inicial).
+
+Envio previsto das branches locais main (fundação original) e feat/cinematic-landing (implementação atual), preservando sua separação e sem merge ou deploy. O push e a verificação dos SHAs serão confirmados na entrega. Proteção de branch e revisão continuam conforme governança; o push não configura essas políticas.
+
+Resultado final do refinamento: `npm run test:e2e -- tests/e2e/portfolio.spec.ts` terminou com saída 0, **20 execuções aprovadas em 38,8s** no build com fade final. Capturas posteriores de 320, 390, 430 e 1440px inspecionadas: luz concentrada atrás das trilhas, transição suave ao preto, sombras sem corte vertical abrupto, cores das imagens e legibilidade preservadas. A suíte confirma também distância de 16/24px entre cards das trilhas, dimensões e velocidades originais, continuidade, controles, foco e gestos nativos.
+
+`npm run format:check` e `git diff --check` aprovados; HTTP 200 confirmado no servidor local mantido em http://127.0.0.1:5173/#trabalhos. Commit solicitado: `feat: enhance portfolio with cinematic backlight and ambient shadows`. Nenhum benchmark ou resultado de CI no GitHub foi presumido.

@@ -14,4 +14,4 @@ Landing page local com navegação, composição narrativa, efeitos CSS e timeli
 
 ## Etapa 4 — Publicação não autorizada
 
-Sem remoto, push, merge ou deploy. Domínio, mídia final, SEO de publicação e homologação continuam pendentes. Manter noindex até autorização específica.
+Criação do repositório GitHub privado mariomoutinho/mario-gomes-portfolio e push das branches autorizados em 25/11/2026. Merge na main e deploy continuam não autorizados. Domínio, mídia final, SEO de publicação e homologação continuam pendentes. Manter noindex até autorização específica.

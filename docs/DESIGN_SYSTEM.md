@@ -1877,3 +1877,13 @@ Implemente a galeria conforme esta especificação, priorizando fidelidade visua
 ## Retrato profissional — atualização de 25/11/2026
 
 Foto fornecida diretamente pelo usuário para uso na seção Sobre, salva sem alteração em public/media/images/mario-gomes.png (791×788px, 516.355 bytes). Nenhuma licença sobre a foto foi presumida além do uso solicitado neste site. Substitui a indicação “Fotografia profissional a adicionar”. Preservados preto e branco, proporção e rosto; imagem com dimensões explícitas e carregamento adiado. Efeitos na interface: máscara de entrada existente, borda discreta e aproximação interna de 2% apenas com hover, ponteiro preciso e sem preferência por movimento reduzido. Sem vidro, formas orgânicas ou iluminação sobre o rosto. Não houve edição generativa ou alteração do arquivo original.
+
+## Cinematic Portfolio Backlight — refinamento de 25/11/2026
+
+Atualização exclusiva da iluminação do Ato 03, posterior à especificação Marquee. CSS em cinematic-portfolio-marquee.module.css; sem alteração da estrutura React, dos dados, das imagens, da tipografia, dos textos, das dimensões, das velocidades, das direções ou dos controles.
+
+- Camada estática por ::before no contêiner das duas esteiras, com position:relative e isolation:isolate. Três fontes radiais azuis: 65%×45% em 25%/35% (#315DCD a 28%); 60%×45% em 85%/70% (rgb(72,123,220) a 18%); 80%×20% em 50%/55% (#7199F4 a 10%). Todas desaparecem em transparência, com máscara vertical adicional nas extremidades superior/inferior para evitar um limite retangular perceptível; a camada é decorativa e não recebe eventos.
+- Cards com sombras externas 0/12/28 a 45% de preto, 0/4/10 a 25% de preto e halo azul 0/0/20 a 7%. Borda azul clara a 16% e reflexo interno superior de 1px a 10%, combinados com as sombras externas. Nenhum filtro sobre as imagens.
+- Espaço vertical de pintura de 56px no viewport, compensado por margens negativas de mesmo valor dentro de flow-root, preservando posições, dimensões e distância de 16/24px entre os cards das duas trilhas. As áreas transparentes de pintura não capturam eventos; a faixa de conteúdo continua interativa, inclusive nos intervalos entre cards. Mantido o recorte e a máscara horizontal.
+- Luz concentrada nas esteiras; cabeçalho e controles inferiores permanecem predominantemente escuros. Sem novas animações, loops JavaScript, Mouse Spotlight, Canvas, bibliotecas ou efeitos neon.
+- Capturas anteriores em .cache/backlight-before/marquee-{320,390,430,1440}.png; capturas posteriores geradas pela suíte em test-results/**/marquee-*.png. Ambas são artefatos ignorados, não mídia do site.

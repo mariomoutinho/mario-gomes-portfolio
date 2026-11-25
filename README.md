@@ -53,10 +53,10 @@ Consulte [arquitetura](docs/ARCHITECTURE.md), [especificação visual](docs/DESI
 
 ## Git e GitHub
 
-Repositório local independente em `E:\mario-gomes-portfolio`, branch inicial `main`; fora do Pindorama RPG. Não há remoto configurado nem publicação nesta entrega. Conta/organização e visibilidade no GitHub ainda precisam ser informadas.
+Repositório independente em `E:\mario-gomes-portfolio`, fora do Pindorama RPG. O usuário autorizou em 25/11/2026 a criação do repositório privado [mariomoutinho/mario-gomes-portfolio](https://github.com/mariomoutinho/mario-gomes-portfolio) e o envio do histórico local. A branch `main` preserva a fundação; a implementação está em `feat/cinematic-landing`. Essa autorização não inclui merge na main ou deploy.
 
 Use branches curtas (`feat/...`, `fix/...`, `chore/...`), commits em inglês e PRs com problema, mudança, validação e limites. Identificadores de código em inglês; documentação, interface e descrição dos testes em pt-BR. Antes de mesclar, exigir revisão e o check `Quality and build`. A proteção de branch é uma configuração futura no GitHub; o arquivo de CI não a ativa.
 
-Após definir conta, visibilidade e autorizar publicação, criar o remoto chamado `mario-gomes-portfolio` e enviar o histórico local. O workflow [.github/workflows/ci.yml](.github/workflows/ci.yml) fica pronto para PRs e pushes na main, sem deploy e com permissão somente de leitura. Não versionar credenciais, .env, node_modules, dist ou relatórios. Variáveis VITE_* são públicas no bundle: não devem conter segredos.
+O remoto autorizado é `https://github.com/mariomoutinho/mario-gomes-portfolio.git`. O workflow [.github/workflows/ci.yml](.github/workflows/ci.yml) fica pronto para PRs e pushes na main, sem deploy e com permissão somente de leitura. Não versionar credenciais, .env, node_modules, dist ou relatórios. Variáveis VITE_* são públicas no bundle: não devem conter segredos.
 
 A licença do código e as permissões da mídia definitiva e das marcas permanecem pendentes. As fontes locais acompanham licenças OFL; as imagens ilustrativas do portfólio têm origem e licença registradas em docs/DESIGN_SYSTEM.md. Nenhuma licença ou autoria de conteúdo externo foi presumida.
