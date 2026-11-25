@@ -41,6 +41,8 @@
   color: #fff;
   backdrop-filter: blur(12px);
   cursor: pointer;
+  opacity: 1;
+  transition: opacity 350ms var(--ease-reveal);
 }
 .stage[data-controls-visible='false'] .control {
   opacity: 0;

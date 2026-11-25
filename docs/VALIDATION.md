@@ -240,3 +240,9 @@ npm run check aprovado (formatação, lint, 5 testes Vitest, tipagem e build). C
 Resultado final: npm run test:e2e aprovado com 52 execuções em 1,6 minuto em Chromium desktop e mobile. Os três caminhos do vídeo passaram nos dois projetos, incluindo som ativo, botão central, ocultação após 1s, bloqueio de autoplay e teclado. git diff --check aprovado. Envio e publicação pela branch de trabalho já autorizada.
 
 Publicação confirmada: commit 6c6abb0 enviado; workflow https://github.com/mariomoutinho/mario-gomes-portfolio/actions/runs/45657790901 terminou com sucesso. Verificação do site público em 390px e 1440px: botão único acionado, reprodução avançando, muted=false e botão com opacity=0 após 1,2s. Capturas .cache/central-play-live-{before,after}-{390,1440}.png. Registro documental posterior enviado com [skip ci].
+
+## Esmaecimento do botão central — 25/11/2026
+
+Adicionada transição CSS de opacidade de 350ms ao controle central. O prazo existente de 1 segundo após iniciar a reprodução continua; em seguida o botão esmaece até desaparecer. A reaparição também é suave. Sem mudança em som, reprodução ou temporizador; sem JavaScript/dependências novos. A regra global de prefers-reduced-motion desativa a transição quando a pessoa prefere movimento reduzido.
+
+Validação: npm run check aprovado (formatação, lint, 5 testes Vitest, tipagem e build); npm run test:e2e -- tests/e2e/hero-video.spec.ts aprovado, 6 execuções em 14,8s, desktop e mobile. Inspeção automatizada com movimento permitido confirmou opacidade intermediária 0,185058 durante a transição e opacidade final 0; não é uma troca abrupta. Sem repetição da suíte das outras seções por se tratar de ajuste CSS isolado no controle. git diff --check aprovado.
