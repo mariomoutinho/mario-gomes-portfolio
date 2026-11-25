@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import styles from './header.module.css';
 const links = [
@@ -83,18 +83,26 @@ export function Header() {
         }}
       >
         <div className={styles.panelTop}>
-          <span>Mário Gomes</span>
+          <span className={styles.brand}>
+            Mário Gomes<span>EDIÇÃO DE VÍDEO</span>
+          </span>
           <button aria-label="Fechar menu" onClick={close}>
             <X />
           </button>
         </div>
-        <nav aria-label="Navegação mobile">
-          {[...links, ['contato', 'Contato']].map(([id, label]) => (
-            <a key={id} href={`#${id}`} onClick={close}>
-              {label}
-            </a>
-          ))}
-        </nav>
+        <div className={styles.panelContent}>
+          <p className={styles.panelEyebrow}>BEYOND THE FRAME</p>
+          <nav aria-label="Navegação mobile">
+            {[...links, ['contato', 'Contato']].map(([id, label]) => (
+              <a key={id} href={`#${id}`} onClick={close}>
+                {label}
+              </a>
+            ))}
+          </nav>
+        </div>
+        <p className={styles.panelFooter}>
+          Imagem. Ritmo. <span>Intenção.</span>
+        </p>
       </dialog>
     </header>
   );
