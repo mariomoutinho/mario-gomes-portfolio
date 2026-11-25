@@ -1,4 +1,4 @@
-﻿.ambient {
+.ambient {
   position: absolute;
   inset: 0;
   overflow: hidden;
@@ -10,9 +10,6 @@
 }
 .ambient[data-running='true'] i {
   animation-play-state: running !important;
-}
-:global([data-motion-paused='true']) .ambient i {
-  animation-play-state: paused !important;
 }
 .aurora i {
   width: 80%;

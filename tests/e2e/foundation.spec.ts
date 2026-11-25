@@ -1,4 +1,4 @@
-﻿import { expect, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 for (const width of [320, 360, 375, 390, 430, 768, 1280, 1440]) {
   test(`layout e integridade em ${width}px`, async ({ page }, testInfo) => {
@@ -25,14 +25,9 @@ for (const width of [320, 360, 375, 390, 430, 768, 1280, 1440]) {
   });
 }
 
-test('serviço, timeline e pausa de movimento funcionam por teclado', async ({ page }) => {
+test('serviço e timeline funcionam por teclado', async ({ page }) => {
   await page.goto('/');
-  const pause = page.getByRole('button', { name: 'Pausar movimentos decorativos' });
-  await pause.click();
-  await expect(
-    page.getByRole('button', { name: 'Retomar movimentos decorativos' }),
-  ).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('[data-motion-paused]')).toHaveAttribute('data-motion-paused', 'true');
+  await expect(page.locator('#inicio button').filter({ hasText: /movimento/ })).toHaveCount(0);
   const service = page.getByRole('button', { name: /Edição de vídeo/ });
   await service.focus();
   await page.keyboard.press('Enter');

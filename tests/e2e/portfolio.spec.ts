@@ -167,7 +167,7 @@ test('exploração manual retoma da posição atual e preserva rolagem vertical'
   await expect.poll(async () => page.evaluate(() => scrollY)).toBeGreaterThan(oldY);
 });
 
-test('fora da viewport e pausa global interrompem as esteiras', async ({ page }) => {
+test('fora da viewport e página oculta interrompem as esteiras', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await openPortfolio(page);
   await expect
@@ -188,12 +188,6 @@ test('fora da viewport e pausa global interrompem as esteiras', async ({ page })
     .poll(async () => (await animationState(page, 'verticalPortfolioTrack')).state)
     .toBe('running');
   await page.locator('#contato').scrollIntoViewIfNeeded();
-  await expect
-    .poll(async () => (await animationState(page, 'verticalPortfolioTrack')).state)
-    .toBe('paused');
-  await page.goto('/');
-  await page.getByRole('button', { name: 'Pausar movimentos decorativos' }).click();
-  await page.locator('#portfolio-title').scrollIntoViewIfNeeded();
   await expect
     .poll(async () => (await animationState(page, 'verticalPortfolioTrack')).state)
     .toBe('paused');

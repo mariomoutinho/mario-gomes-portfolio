@@ -1,9 +1,9 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { portfolioWorks, type PortfolioWork } from '../data/portfolio';
 import { CinematicPortfolioMarquee, MarqueeControls } from './cinematic-portfolio-marquee';
 import { PortfolioVideoPlayer } from '../components/media/portfolio-video-player';
 import styles from './portfolio-section.module.css';
-export function PortfolioSection({ globalPaused }: { globalPaused: boolean }) {
+export function PortfolioSection() {
   const section = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
@@ -37,7 +37,7 @@ export function PortfolioSection({ globalPaused }: { globalPaused: boolean }) {
       id="trabalhos"
       aria-labelledby="portfolio-title"
       className={styles.section}
-      data-running={visible && pageVisible && !paused && !globalPaused && !selected && !reduced}
+      data-running={visible && pageVisible && !paused && !selected && !reduced}
     >
       <header className={styles.heading} data-revealed={revealed}>
         <p className={styles.eyebrow}>02 / PORTFÓLIO</p>
@@ -50,7 +50,7 @@ export function PortfolioSection({ globalPaused }: { globalPaused: boolean }) {
       </header>
       <CinematicPortfolioMarquee
         works={portfolioWorks}
-        running={visible && pageVisible && !paused && !globalPaused && !selected && !reduced}
+        running={visible && pageVisible && !paused && !selected && !reduced}
         reduced={reduced}
         onSelect={setSelected}
       />

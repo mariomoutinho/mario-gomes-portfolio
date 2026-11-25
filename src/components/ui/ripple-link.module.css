@@ -1,4 +1,4 @@
-﻿.link {
+.link {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,9 +41,6 @@
   border-radius: 50%;
   background: #7199f44d;
   animation: ripple 500ms ease-out forwards;
-}
-:global([data-motion-paused='true']) .link::before {
-  animation-play-state: paused;
 }
 @keyframes spin {
   to {

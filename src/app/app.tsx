@@ -1,5 +1,5 @@
 import { useState, type PointerEvent, type CSSProperties } from 'react';
-import { ArrowDown, ArrowUpRight, Pause, Play } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { showreel, portrait } from '../data/media';
 import { ResponsiveVideo } from '../components/media/responsive-video';
 import { PortfolioSection } from '../sections/portfolio-section';
@@ -16,16 +16,15 @@ import { contactUrl } from '../data/site-content';
 import styles from './app.module.css';
 
 export function App() {
-  const [paused, setPaused] = useState(false);
   const [spotlight, setSpotlight] = useState({ x: 0, y: 0, visible: false });
   const updateSpotlight = (event: PointerEvent<HTMLElement>) => {
-    if (paused || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     const rect = event.currentTarget.getBoundingClientRect();
     setSpotlight({ x: event.clientX - rect.left, y: event.clientY - rect.top, visible: true });
   };
   return (
-    <div data-motion-paused={paused}>
+    <div>
       <a className={styles.skip} href="#conteudo">
         Pular para o conteúdo
       </a>
@@ -79,16 +78,6 @@ export function App() {
             <a href="#posicionamento">
               CONTINUE A HISTÓRIA <ArrowDown size={16} />
             </a>
-            <button
-              onClick={() => setPaused(!paused)}
-              aria-pressed={paused}
-              aria-label={
-                paused ? 'Retomar movimentos decorativos' : 'Pausar movimentos decorativos'
-              }
-            >
-              {paused ? <Play size={14} /> : <Pause size={14} />}
-              <span>{paused ? 'Retomar movimento' : 'Pausar movimento'}</span>
-            </button>
           </div>
         </section>
         <section id="posicionamento" className={`${styles.section} ${styles.light}`}>
@@ -115,7 +104,7 @@ export function App() {
             </div>
           </div>
         </section>
-        <PortfolioSection globalPaused={paused} />
+        <PortfolioSection />
         <section id="sobre" className={`${styles.section} ${styles.light}`}>
           <div className={styles.about}>
             <CinematicReveal>

@@ -1,4 +1,4 @@
-﻿.skip {
+.skip {
   position: fixed;
   top: -80px;
   left: 20px;
@@ -131,21 +131,6 @@
   font: 9px var(--font-mono);
   letter-spacing: 0.08em;
   min-height: 44px;
-}
-.heroBottom button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 0;
-  background: transparent;
-  padding: 12px;
-  min-height: 44px;
-  font-size: 11px;
-  color: #a7b2c7;
-}
-.heroBottom button span {
-  max-width: 70px;
-  text-align: left;
 }
 .hero > .spotlight {
   position: absolute;
@@ -349,9 +334,6 @@
 .finalButton:active {
   background: #abc8ff;
 }
-:global([data-motion-paused='true']) .finalButton::before {
-  animation-play-state: paused;
-}
 .contactNote {
   font-size: 12px;
   color: #c2cbdf;
@@ -455,9 +437,6 @@
   }
   .about {
     gap: 10%;
-  }
-  .heroBottom button span {
-    max-width: none;
   }
   .heroBottom a {
     font-size: 11px;
