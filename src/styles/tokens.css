@@ -1,5 +1,28 @@
-/*
- * Ponto de entrada das CSS Custom Properties.
- * Cores, tipografia, espaçamento e demais valores aguardam direção artística.
- * Ao definir tokens aprovados, declarar as propriedades em :root.
- */
+﻿:root {
+  --color-black: #08090d;
+  --color-dark: #0d111b;
+  --color-dark-blue: #101b33;
+  --color-deep-blue: #172e5e;
+  --color-primary: #315dcd;
+  --color-blue-light: #7199f4;
+  --color-blue-glow: #abc8ff;
+  --color-white: #fff;
+  --color-editorial: #f4f3f0;
+  --color-text-dark: #151922;
+  --color-text-muted-light: #a7b2c7;
+  --color-text-muted-dark: #575f6c;
+  --color-border-dark: rgb(255 255 255 / 12%);
+  --color-glass: rgb(255 255 255 / 7%);
+  --font-main: 'Manrope', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', Consolas, monospace;
+  --motion-press: 120ms;
+  --motion-feedback: 180ms;
+  --motion-interface: 250ms;
+  --motion-expand: 280ms;
+  --motion-content: 500ms;
+  --motion-reveal: 650ms;
+  --motion-stagger: 80ms;
+  --motion-playhead: 450ms;
+  --motion-ambient: 22s;
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+}

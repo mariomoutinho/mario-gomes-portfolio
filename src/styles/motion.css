@@ -1,6 +1,11 @@
-/* Sem animações nesta fase; manter a preferência do usuário nas próximas etapas. */
-@media (prefers-reduced-motion: reduce) {
-  html:focus-within {
+﻿@media (prefers-reduced-motion: reduce) {
+  html {
     scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0s !important;
   }
 }

@@ -1,6 +1,10 @@
-# Arquitetura
+﻿# Arquitetura
 
-## Escopo implementado
+## Evolução: landing page local
+
+A especificação recebida em 25/11/2026 autoriza a interface comercial local. App compõe sete seções narrativas; dados em src/data, componentes em layout/media/motion/ui e seções interativas em src/sections. Não há novas dependências. A documentação abaixo registra a fundação original; o contrato visual vigente está em DESIGN_SYSTEM.md.
+
+## Escopo original da fundação
 
 Aplicação React estática de uma única entrada. `index.html → src/main.tsx → src/app/app.tsx`. StrictMode ativo. O App expõe somente uma região main vazia com rótulo técnico, estilizada por CSS Module. O HTML tem idioma pt-BR, título solicitado, viewport e noindex enquanto a fundação não é um site pronto. Remover noindex apenas na etapa de publicação aprovada.
 

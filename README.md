@@ -1,6 +1,6 @@
-# Mário Gomes — Beyond the Frame
+﻿# Mário Gomes — Beyond the Frame
 
-Fundação técnica de `mario-gomes-portfolio`, futuro portfólio audiovisual estático em português brasileiro. Esta entrega prepara engenharia e governança. A página renderiza uma raiz vazia intencionalmente, sem interface comercial, identidade visual, mídia ou animações.
+Landing page editorial cinematográfica de Mário Gomes, editor de vídeo, em React/TypeScript/Vite. Implementação local autorizada pela especificação em docs/DESIGN_SYSTEM.md. Mídia, projetos, fotografia e WhatsApp reais ainda precisam ser fornecidos; a interface identifica essas pendências sem inventar dados.
 
 ## Ambiente
 
@@ -16,7 +16,7 @@ npm ci
 npm run dev
 ```
 
-Abra o endereço local exibido pelo Vite. A tela vazia é esperada.
+Abra o endereço local exibido pelo Vite. A landing page estará disponível; consulte as pendências de conteúdo em docs/DESIGN_SYSTEM.md.
 
 ## Comandos
 
@@ -49,7 +49,7 @@ A configuração E2E inicia e encerra seu próprio servidor de preview na porta 
 
 ## Arquitetura e limites
 
-Consulte [arquitetura](docs/ARCHITECTURE.md), [contrato futuro de design](docs/DESIGN_SYSTEM.md), [roadmap](docs/ROADMAP.md) e [validação](docs/VALIDATION.md). A base não tem backend, banco, autenticação, painel, rotas, animações ou bibliotecas de componentes.
+Consulte [arquitetura](docs/ARCHITECTURE.md), [especificação visual](docs/DESIGN_SYSTEM.md), [roadmap](docs/ROADMAP.md) e [validação](docs/VALIDATION.md). A base não tem backend, banco, autenticação, painel, rotas, animações ou bibliotecas de componentes.
 
 ## Git e GitHub
 

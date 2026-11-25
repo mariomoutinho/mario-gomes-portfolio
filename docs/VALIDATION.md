@@ -55,3 +55,29 @@ O Git local usa main e não tem remoto. O workflow de GitHub Actions inclui inst
 - Chromium desktop/mobile foi testado; não houve execução em dispositivo físico, Firefox ou WebKit. O ambiente local é Windows 10; a documentação atual do Playwright lista Windows 11 como requisito suportado. A CI em Ubuntu ainda não foi executada.
 - O comando `codex app E:\mario-gomes-portfolio` informou que o desktop não estava instalado e abriu o instalador Windows. Foi repetido a pedido do usuário após fechar o instalador. Isso não comprova instalação concluída nem mudança do diretório desta conversa.
 - Licença do código, conteúdo comercial, permissões de mídia, direção artística e publicação do site aguardam decisões futuras.
+
+## Landing page — 25/11/2026
+
+Implementação autorizada pela especificação anexada pelo usuário, na branch local `feat/cinematic-landing`. A inspeção inicial encontrou Git limpo e nenhum material em public/media além de .gitkeep. Sem instalação de dependências, alteração de lockfile, remoto, commit, merge, push ou deploy.
+
+### Verificações
+
+- `npm run check`: aprovado, incluindo Prettier, ESLint sem avisos, 2 testes Vitest, TypeScript e build Vite.
+- Build final observado: HTML 0,96 kB; CSS 19,41 kB (5,32 kB gzip); JS 242,49 kB (76,14 kB gzip). Fontes locais: Manrope 164.700 bytes e IBM Plex Mono 135.580 bytes, com licenças OFL preservadas.
+- `git diff --check`: aprovado.
+- `Invoke-WebRequest http://127.0.0.1:5173/`: HTTP 200; servidor de desenvolvimento mantido para visualização local.
+- Capturas de página inteira em `test-results/**/landing-390.png` e `landing-1440.png` inspecionadas visualmente, com alternância de fundos, composição responsiva e indicação explícita de materiais pendentes. São artefatos locais ignorados, assim como o relatório Playwright em playwright-report/index.html.
+
+### Correções durante a validação
+
+O ambiente jsdom não implementa os métodos do dialog; o setup de teste fornece substitutos, enquanto a operação real do modal é verificada no Chromium. Corrigidos overflow por largura mínima intrínseca de grid/flex em telas estreitas e ciclo de foco do menu. O teste de pausa foi corrigido para procurar o novo nome acessível depois do clique. Uma tentativa inicial de E2E utilizou um build anterior após falha de teste unitário; seus resultados foram descartados. Rodadas no sandbox concluíram os casos, mas ficaram presas no encerramento do preview e foram interrompidas; a rodada final foi executada com permissão de processos fora do sandbox. Avisos NO_COLOR/FORCE_COLOR foram emitidos pelo ambiente.
+
+### Limites da homologação
+
+Sem vídeos, posters, fotografia ou projetos reais, reprodução, áudio, enquadramento, legendas, desempenho de mídia e parallax de imagens reais não foram homologados. O player e a galeria estão integrados por configuração, mas dependem de materiais autorizados. O CTA de orçamento está desativado por ausência de WhatsApp; não há link comercial externo fictício. A borda/ripple do link de orçamento só aparecem após configurar o número real. Não há favicon de marca ou imagem OG aprovada, domínio ou sitemap de produção. Mantido noindex.
+
+Sem medição de LCP, INP ou CLS; os valores da especificação são metas. Testes em Chromium desktop e emulação mobile não substituem dispositivos físicos ou Safari/Firefox. Biografia, lista completa de serviços, ferramentas, prova social e FAQ aguardam conteúdo. As quatro etapas do processo são as provisórias autorizadas e precisam de validação.
+
+### Resultado final E2E
+
+`$env:PLAYWRIGHT_BROWSERS_PATH = "$PWD/.cache/ms-playwright"; npm run test:e2e`: saída 0, **24 execuções aprovadas em 52,7s**. Oito larguras (320, 360, 375, 390, 430, 768, 1280 e 1440px) em Chromium desktop e emulação mobile; verificação de HTTP/rede/console, hierarquia, noindex, ausência de overflow, menu/foco/Escape/seleção, serviços por teclado, mudança contextual e deslocamento do playhead, pausa global, redução de movimento e spotlights adaptados ao dispositivo. Preview encerrado normalmente na rodada final. O link de desenvolvimento permanece ativo em http://127.0.0.1:5173/.

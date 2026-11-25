@@ -1,0 +1,139 @@
+﻿.layout {
+  display: grid;
+  gap: 40px;
+  margin-top: 48px;
+}
+.timeline {
+  position: relative;
+  padding: 20px 12px 20px 0;
+  background: #080c15;
+  border: 1px solid #ffffff1f;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.ruler {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 8px 20px 40px;
+  font: 10px var(--font-mono);
+  color: #a7b2c7;
+}
+.track {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.track > span {
+  width: 28px;
+  flex-shrink: 0;
+  text-align: center;
+  font: 11px var(--font-mono);
+  color: #a7b2c7;
+}
+.clips {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+.clips i {
+  width: 25%;
+  padding: 12px 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #172e5e;
+  border: 1px solid #315dcd66;
+  border-radius: 3px;
+  font: normal 10px var(--font-mono);
+}
+.clips .activeClip {
+  background: #315dcd;
+  border-color: #7199f4;
+}
+.playhead {
+  position: absolute;
+  inset: 16px auto 12px;
+  left: calc(40px + (100% - 56px) * var(--position));
+  width: 1px;
+  background: #abc8ff;
+  box-shadow: 0 0 8px #7199f488;
+  transition: left var(--motion-playhead) ease;
+}
+.playhead::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -4px;
+  border: 4px solid transparent;
+  border-top-color: #abc8ff;
+}
+.note {
+  font: 10px/1.6 var(--font-mono);
+  color: #a7b2c7;
+  margin: 12px 0 24px;
+}
+.selectors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.selectors button {
+  text-align: left;
+  min-height: 52px;
+  background: transparent;
+  border: 1px solid #ffffff26;
+  border-radius: 4px;
+  padding: 12px;
+}
+.selectors button[aria-pressed='true'] {
+  background: #172e5e;
+  border-color: #7199f4;
+}
+.selectors span {
+  font: 11px var(--font-mono);
+  color: #abc8ff;
+  margin-right: 12px;
+}
+.description > span {
+  font: 12px var(--font-mono);
+  color: #7199f4;
+}
+.description h3 {
+  font-size: 32px;
+  margin: 20px 0;
+}
+.description p {
+  color: #a7b2c7;
+  max-width: 34ch;
+  animation: enter 200ms ease;
+}
+@keyframes enter {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 7fr 4fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .selectors {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+.layout > * {
+  min-width: 0;
+}
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  }
+}
