@@ -53,9 +53,11 @@ Consulte [arquitetura](docs/ARCHITECTURE.md), [especificação visual](docs/DESI
 
 ## Git e GitHub
 
-Repositório independente em `E:\mario-gomes-portfolio`, fora do Pindorama RPG. O usuário autorizou em 25/11/2026 a criação do repositório privado [mariomoutinho/mario-gomes-portfolio](https://github.com/mariomoutinho/mario-gomes-portfolio) e o envio do histórico local. A branch `main` preserva a fundação; a implementação está em `feat/cinematic-landing`. Essa autorização não inclui merge na main ou deploy.
+Repositório independente em `E:\mario-gomes-portfolio`, fora do Pindorama RPG. O usuário autorizou em 25/11/2026 a criação do repositório inicialmente privado [mariomoutinho/mario-gomes-portfolio](https://github.com/mariomoutinho/mario-gomes-portfolio) e o envio do histórico local. A branch `main` preserva a fundação; a implementação está em `feat/cinematic-landing`. O usuário autorizou posteriormente tornar o repositório público e publicar o site no GitHub Pages. A publicação usa a implementação atual, sem merge na main.
 
 Use branches curtas (`feat/...`, `fix/...`, `chore/...`), commits em inglês e PRs com problema, mudança, validação e limites. Identificadores de código em inglês; documentação, interface e descrição dos testes em pt-BR. Antes de mesclar, exigir revisão e o check `Quality and build`. A proteção de branch é uma configuração futura no GitHub; o arquivo de CI não a ativa.
+
+Site público: [mariomoutinho.github.io/mario-gomes-portfolio](https://mariomoutinho.github.io/mario-gomes-portfolio/). O workflow `.github/workflows/pages.yml` executa instalação, checks e build e publica `dist` via GitHub Pages a cada push em `feat/cinematic-landing`. As actions são fixadas por SHA; a publicação usa OIDC, sem token no código. `base: ./` e os caminhos de mídia baseados em BASE_URL permitem servir o site em uma subpasta.
 
 O remoto autorizado é `https://github.com/mariomoutinho/mario-gomes-portfolio.git`. O workflow [.github/workflows/ci.yml](.github/workflows/ci.yml) fica pronto para PRs e pushes na main, sem deploy e com permissão somente de leitura. Não versionar credenciais, .env, node_modules, dist ou relatórios. Variáveis VITE_* são públicas no bundle: não devem conter segredos.
 

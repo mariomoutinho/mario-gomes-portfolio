@@ -1887,3 +1887,7 @@ Atualização exclusiva da iluminação do Ato 03, posterior à especificação 
 - Espaço vertical de pintura de 56px no viewport, compensado por margens negativas de mesmo valor dentro de flow-root, preservando posições, dimensões e distância de 16/24px entre os cards das duas trilhas. As áreas transparentes de pintura não capturam eventos; a faixa de conteúdo continua interativa, inclusive nos intervalos entre cards. Mantido o recorte e a máscara horizontal.
 - Luz concentrada nas esteiras; cabeçalho e controles inferiores permanecem predominantemente escuros. Sem novas animações, loops JavaScript, Mouse Spotlight, Canvas, bibliotecas ou efeitos neon.
 - Capturas anteriores em .cache/backlight-before/marquee-{320,390,430,1440}.png; capturas posteriores geradas pela suíte em test-results/**/marquee-*.png. Ambas são artefatos ignorados, não mídia do site.
+
+## Publicação pública — atualização de 25/11/2026
+
+Repositório público e GitHub Pages autorizados expressamente pelo usuário. URL canônica e og:url: https://mariomoutinho.github.io/mario-gomes-portfolio/. Meta robots alterada para index,follow. As limitações de conteúdo continuam visíveis: imagens do portfólio são ilustrativas, vídeos reais e WhatsApp seguem pendentes. Nenhuma licença geral de código ou de mídia foi inventada pela publicação. A configuração anterior de noindex era relativa às etapas ainda não autorizadas.

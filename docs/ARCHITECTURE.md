@@ -61,3 +61,7 @@ Vídeos, posters, formatos, legendas, compressão, lazy loading e orçamentos de
 - [Vitest: configuração](https://vitest.dev/config/)
 - [Playwright: instalação](https://playwright.dev/docs/intro)
 - Metadados de versões, engines e peerDependencies consultados no registro oficial npm durante a preparação.
+
+## Publicação autorizada — GitHub Pages
+
+O usuário autorizou em 25/11/2026 a mudança do repositório para público e a publicação da implementação atual. A branch main continua com a fundação; não houve merge. `.github/workflows/pages.yml` faz build/checks em push da branch de implementação, publica um artefato dist e implanta pelo GitHub Pages com OIDC. Somente o job de deploy possui pages:write e id-token:write. Actions oficiais fixadas por SHAs verificados na API do GitHub. Vite usa base relativa e os dados de mídia usam import.meta.env.BASE_URL; as fontes públicas referenciadas no CSS são reescritas pelo build. Indexação e URL canônica foram atualizadas após a autorização de publicação.

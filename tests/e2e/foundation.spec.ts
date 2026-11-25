@@ -15,10 +15,7 @@ for (const width of [320, 360, 375, 390, 430, 768, 1280, 1440]) {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(/Imagens\s*ganham sentido\./);
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-      'content',
-      'noindex, nofollow',
-    );
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );

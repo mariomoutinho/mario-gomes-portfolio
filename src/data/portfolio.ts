@@ -116,7 +116,7 @@ export const portfolioWorks: PortfolioWork[] = examples.map(
     category,
     orientation,
     posterAlt,
-    posterSrc: `/media/portfolio/${id}.webp`,
+    posterSrc: `${import.meta.env.BASE_URL}media/portfolio/${id}.webp`,
     videoSrc: null,
     isPlaceholder: true,
     sourceCredit: {

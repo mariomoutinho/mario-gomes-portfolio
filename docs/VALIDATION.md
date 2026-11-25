@@ -148,3 +148,17 @@ Envio previsto das branches locais main (fundação original) e feat/cinematic-l
 Resultado final do refinamento: `npm run test:e2e -- tests/e2e/portfolio.spec.ts` terminou com saída 0, **20 execuções aprovadas em 38,8s** no build com fade final. Capturas posteriores de 320, 390, 430 e 1440px inspecionadas: luz concentrada atrás das trilhas, transição suave ao preto, sombras sem corte vertical abrupto, cores das imagens e legibilidade preservadas. A suíte confirma também distância de 16/24px entre cards das trilhas, dimensões e velocidades originais, continuidade, controles, foco e gestos nativos.
 
 `npm run format:check` e `git diff --check` aprovados; HTTP 200 confirmado no servidor local mantido em http://127.0.0.1:5173/#trabalhos. Commit solicitado: `feat: enhance portfolio with cinematic backlight and ambient shadows`. Nenhum benchmark ou resultado de CI no GitHub foi presumido.
+
+## Publicação no GitHub Pages — 25/11/2026
+
+Autorização explícita do usuário para tornar o portfólio/repositório público e acessar pelo GitHub Pages. Repositório alterado para visibility=public e Pages configurado via API com build_type=workflow; resposta retornou https://mariomoutinho.github.io/mario-gomes-portfolio/. Não houve merge na main.
+
+### Preparação e verificações locais
+
+- Vite com base relativa `./`; caminhos das capas e do retrato usam import.meta.env.BASE_URL. O CSS emitido referencia `../fonts/manrope.ttf` e `../fonts/ibm-plex-mono.ttf`; scripts/estilos no HTML usam `./assets/`. Isso evita depender da raiz do domínio ao publicar na subpasta do repositório.
+- Meta robots atualizada para index,follow após autorização; canonical e og:url apontam para a URL pública. A suíte foi atualizada para verificar a indexação autorizada.
+- Workflow `.github/workflows/pages.yml`: push em feat/cinematic-landing ou disparo manual; npm ci, npm run check, upload de dist e deploy com OIDC. Somente o job deploy recebe pages:write e id-token:write. Actions oficiais fixadas por SHA e verificadas nas APIs dos respectivos repositórios. A configuração do Pages foi verificada contra a documentação oficial https://docs.github.com/en/rest/pages/pages.
+- `npm run check`: saída 0; Prettier, ESLint, 5 testes Vitest, TypeScript e build aprovados. HTML 1,14 kB (0,52 kB gzip), CSS 25,48 kB (6,46 kB gzip), JS 251,94 kB (79,54 kB gzip).
+- `npm run test:e2e`: 46 execuções aprovadas em aproximadamente 2 minutos, desktop e emulação mobile. Mantidas as verificações de rede, console, mídia, responsividade, menu, foto, controles e movimento.
+
+A mudança de visibilidade e a ativação do Pages usam a autenticação local do Git Credential Manager; nenhuma credencial foi inserida no código ou nos arquivos versionados. Resultado do deploy remoto e homologação pública serão confirmados na entrega. O site ainda possui imagens ilustrativas claramente identificadas e contato comercial pendente; a publicação não transforma esses recursos em projetos reais nem concede licença geral de código/mídia.
