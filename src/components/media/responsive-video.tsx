@@ -1,11 +1,12 @@
-﻿import { useEffect, useRef, useState } from 'react';
-import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { AudioLines, Pause, Play, Volume2 } from 'lucide-react';
 import styles from './responsive-video.module.css';
 export interface VideoSource {
   src: string;
   poster: string;
   description: string;
   verticalSrc?: string;
+  rotateToLandscape?: boolean;
 }
 export function ResponsiveVideo({
   source,
@@ -53,49 +54,63 @@ export function ResponsiveVideo({
   }, [autoPlay]);
   return (
     <div className={styles.player}>
-      <video
-        ref={ref}
-        poster={source.poster}
-        muted={muted}
-        playsInline
-        loop
-        preload="none"
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onError={() => setFailed(true)}
-        onTimeUpdate={() => {
-          const video = ref.current;
-          if (video?.duration) setProgress((video.currentTime / video.duration) * 100);
-        }}
-        aria-label={source.description}
-      >
-        {source.verticalSrc && <source src={source.verticalSrc} media="(max-width: 767px)" />}
-        <source src={source.src} />
-      </video>
-      {failed ? (
-        <p>Vídeo indisponível. {source.description}</p>
-      ) : (
-        <div className={styles.controls}>
-          <button
-            aria-label={playing ? 'Pausar vídeo' : 'Reproduzir vídeo'}
-            onClick={() => {
-              const video = ref.current;
-              if (!video) return;
-              if (playing) video.pause();
-              else void video.play().catch(() => setFailed(true));
-            }}
-          >
-            {playing ? <Pause /> : <Play />}
-          </button>
-          <button
-            aria-label={muted ? 'Ativar som' : 'Desativar som'}
-            onClick={() => setMuted(!muted)}
-          >
-            {muted ? <VolumeX /> : <Volume2 />}
-          </button>
-          <progress max="100" value={progress} aria-label="Progresso do vídeo" />
-        </div>
-      )}
+      <div className={styles.stage}>
+        <video
+          ref={ref}
+          className={source.rotateToLandscape ? styles.rotated : undefined}
+          poster={source.poster}
+          muted={muted}
+          playsInline
+          loop
+          preload="none"
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onError={() => setFailed(true)}
+          onTimeUpdate={() => {
+            const video = ref.current;
+            if (video?.duration) setProgress((video.currentTime / video.duration) * 100);
+          }}
+          aria-label={source.description}
+        >
+          {source.verticalSrc && <source src={source.verticalSrc} media="(max-width: 767px)" />}
+          <source src={source.src} />
+        </video>
+        {failed ? (
+          <p>Vídeo indisponível. {source.description}</p>
+        ) : (
+          <div className={styles.controls}>
+            <button
+              aria-label={playing ? 'Pausar vídeo' : 'Reproduzir vídeo'}
+              onClick={() => {
+                const video = ref.current;
+                if (!video) return;
+                if (playing) video.pause();
+                else void video.play().catch(() => setFailed(true));
+              }}
+            >
+              {playing ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
+              <span>{playing ? 'Pausar' : 'Ver vídeo'}</span>
+            </button>
+            <button
+              aria-label={muted ? 'Ativar som' : 'Desativar som'}
+              aria-pressed={!muted}
+              onClick={() => setMuted(!muted)}
+            >
+              {muted ? <AudioLines aria-hidden="true" /> : <Volume2 aria-hidden="true" />}
+              <span className={styles.desktopLabel}>
+                {muted ? 'Clique para ouvir o som' : 'Som ativado'}
+              </span>
+              <span className={styles.mobileLabel}>{muted ? 'Ouvir o som' : 'Som ativado'}</span>
+            </button>
+          </div>
+        )}
+        <progress
+          className={styles.progress}
+          max="100"
+          value={progress}
+          aria-label="Progresso do vídeo"
+        />
+      </div>
       <p className={styles.description}>{source.description}</p>
     </div>
   );

@@ -1,10 +1,22 @@
-﻿import { expect, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test('casamento com capa, reprodução manual, áudio e pausa fora da abertura', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   const video = page.locator('#inicio video');
   await expect(video).toBeVisible();
+  const bounds = (await video.boundingBox())!;
+  expect(bounds.width / bounds.height).toBeCloseTo(16 / 9, 2);
+  expect(
+    await video.evaluate((node) => new DOMMatrixReadOnly(getComputedStyle(node).transform).b),
+  ).toBe(-1);
+  for (const label of ['Reproduzir vídeo', 'Ativar som']) {
+    const control = (await page.getByRole('button', { name: label, exact: true }).boundingBox())!;
+    expect(control.x).toBeGreaterThanOrEqual(bounds.x);
+    expect(control.x + control.width).toBeLessThanOrEqual(bounds.x + bounds.width);
+    expect(control.y).toBeGreaterThanOrEqual(bounds.y);
+    expect(control.height).toBeGreaterThanOrEqual(44);
+  }
   expect(await video.evaluate((node: HTMLVideoElement) => node.paused)).toBe(true);
   expect(await video.evaluate((node: HTMLVideoElement) => node.muted)).toBe(true);
   expect(await video.evaluate((node: HTMLVideoElement) => node.preload)).toBe('none');

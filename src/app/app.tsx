@@ -1,4 +1,4 @@
-﻿import { useState, type PointerEvent, type CSSProperties } from 'react';
+import { useState, type PointerEvent, type CSSProperties } from 'react';
 import { ArrowDown, ArrowUpRight, Pause, Play } from 'lucide-react';
 import { showreel, portrait } from '../data/media';
 import { ResponsiveVideo } from '../components/media/responsive-video';
@@ -32,7 +32,7 @@ export function App() {
       <Header />
       <main id="conteudo">
         <section
-          className={styles.hero}
+          className={`${styles.hero} ${styles.videoHero}`}
           id="inicio"
           aria-label="Abertura cinematográfica"
           onPointerMove={updateSpotlight}
@@ -54,7 +54,7 @@ export function App() {
             <span>MÁRIO GOMES / FILM EDITOR</span>
             <span>IMAGEM. RITMO. INTENÇÃO.</span>
           </div>
-          <div className={styles.frame}>
+          <div className={`${styles.frame} ${styles.videoFrame}`}>
             {showreel ? (
               <ResponsiveVideo source={showreel} autoPlay />
             ) : (
