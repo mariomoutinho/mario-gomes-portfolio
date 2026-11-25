@@ -10,7 +10,7 @@ Direção Editorial Cinematográfica fornecida em 25/11/2026 e registrada em DES
 
 ## Etapa 3 — Implementação autorizada
 
-Landing page local com navegação, composição narrativa, efeitos CSS e timeline. Integração final depende de vídeos, posters, projetos, fotografia, identidade oficial, WhatsApp e validação dos textos/etapas provisórios. Consultar VALIDATION.md para verificações efetivamente executadas.
+Landing page local com navegação, composição narrativa, efeitos CSS e timeline. Integração final depende de vídeos, posters, projetos, identidade oficial, WhatsApp e validação dos textos/etapas provisórios. Consultar VALIDATION.md para verificações efetivamente executadas.
 
 ## Etapa 4 — Publicação não autorizada
 

@@ -8,7 +8,7 @@ Especificação fornecida pelo usuário em 25/11/2026, reproduzida abaixo como f
 - Composição mobile first, margens de 16/20/32/64px, conteúdo até 1280px e cortes entre superfícies claras e escuras.
 - Componentes: Header com dialog modal, CinematicAmbientLight, CinematicLightFlow, CinematicReveal, ResponsiveVideo, CinematicPortfolioMarquee, MarqueeTrack, PortfolioMediaCard, PortfolioVideoPlayer, MarqueeControls, ServiceAccordion, ProductionTimeline e RippleLink.
 - Movimento ambiental controlado por IntersectionObserver, visibilidade do documento, preferência de movimento reduzido e pausa global. Revelações executadas uma vez; conteúdo permanece disponível sem observer.
-- Não há vídeos definitivos, fotografia profissional, marca ou contato no repositório. A atualização autoriza 12 imagens ilustrativas locais exclusivamente no portfólio; elas não representam trabalhos, clientes ou serviços de Mário Gomes. Os demais espaços permanecem pendentes.
+- O retrato profissional fornecido pelo usuário está integrado à seção Sobre. Não há vídeos definitivos, marca ou contato no repositório. A atualização autoriza 12 imagens ilustrativas locais exclusivamente no portfólio; elas não representam trabalhos, clientes ou serviços de Mário Gomes. Os demais espaços permanecem pendentes.
 - `src/data/media.ts` recebe showreel e fotografia; `src/data/portfolio.ts` centraliza os itens das esteiras, créditos e futuras fontes de vídeo; `src/data/site-content.ts` recebe serviços, etapas e WhatsApp. Somente edição de vídeo foi incluída como serviço, por ser a atividade fornecida no pedido. Etapas e textos do processo são provisórios e exigem validação profissional.
 - Sem vídeos definitivos, a página atual amplia imagens ilustrativas no modal acessível; não há parallax aplicado. O modal oferece vídeo nativo e legendas ao preencher videoSrc e captions. O player integrado está preparado para vídeo inline, mute, reprodução manual, pausa dos demais vídeos, progresso, poster e descrição textual. Autoplay só é tentado sem redução de movimento e sem conexão econômica/lenta detectada. Legendas precisam ser avaliadas por vídeo antes de integrar material com fala.
 - CTA final indisponível até informar WhatsApp real. Ripple e borda animada são implementados no link comercial que aparece ao configurar o número.
@@ -1873,3 +1873,7 @@ Não adicione efeitos visuais que concorram com a movimentação das esteiras.
 Não solicite novas decisões artísticas.
 
 Implemente a galeria conforme esta especificação, priorizando fidelidade visual, desempenho mobile e facilidade de substituição futura dos materiais audiovisuais.
+
+## Retrato profissional — atualização de 25/11/2026
+
+Foto fornecida diretamente pelo usuário para uso na seção Sobre, salva sem alteração em public/media/images/mario-gomes.png (791×788px, 516.355 bytes). Nenhuma licença sobre a foto foi presumida além do uso solicitado neste site. Substitui a indicação “Fotografia profissional a adicionar”. Preservados preto e branco, proporção e rosto; imagem com dimensões explícitas e carregamento adiado. Efeitos na interface: máscara de entrada existente, borda discreta e aproximação interna de 2% apenas com hover, ponteiro preciso e sem preferência por movimento reduzido. Sem vidro, formas orgânicas ou iluminação sobre o rosto. Não houve edição generativa ou alteração do arquivo original.

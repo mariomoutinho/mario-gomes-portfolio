@@ -120,14 +120,16 @@ export function App() {
           <div className={styles.about}>
             <CinematicReveal>
               {portrait ? (
-                <img
-                  className={styles.portraitImage}
-                  src={portrait.src}
-                  alt={portrait.alt}
-                  width={800}
-                  height={1000}
-                  loading="lazy"
-                />
+                <div className={styles.portraitFrame}>
+                  <img
+                    className={styles.portraitImage}
+                    src={portrait.src}
+                    alt={portrait.alt}
+                    width={portrait.width}
+                    height={portrait.height}
+                    loading="lazy"
+                  />
+                </div>
               ) : (
                 <div className={styles.portrait}>
                   <span aria-hidden="true">

@@ -472,8 +472,8 @@
 }
 .portraitImage {
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
+  aspect-ratio: 791 / 788;
+  object-fit: contain;
   border-radius: 4px;
 }
 .portfolioEmpty {
@@ -484,4 +484,28 @@
 .introduction > *,
 .about > * {
   min-width: 0;
+}
+
+.portraitFrame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #08090d;
+  animation-duration: 600ms;
+}
+.portraitFrame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: inherit;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .portraitImage {
+    transition: transform 600ms var(--ease-reveal);
+  }
+  .portraitFrame:hover .portraitImage {
+    transform: scale(1.02);
+  }
 }

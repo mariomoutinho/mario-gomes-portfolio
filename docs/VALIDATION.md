@@ -112,3 +112,15 @@ Nenhum remoto Git foi configurado; conta/organização, visibilidade e autoriza�
 Build final: HTML 0,96 kB; CSS 24,40 kB (6,23 kB gzip); JS 251,60 kB (79,41 kB gzip), além dos recursos locais. `npm run check` terminou com saída 0 e 5 testes aprovados. `$env:PLAYWRIGHT_BROWSERS_PATH = "$PWD/.cache/ms-playwright"; npm run test:e2e` terminou com saída 0: **44 execuções aprovadas em aproximadamente 1,3 minuto**. Inclui a verificação final de espaçamentos 16/24px, hover independente da outra esteira, recálculo ao redimensionar, sentidos e velocidades, cruzamento da emenda, pausa persistente, simulação de aba oculta, pausa fora da viewport, galeria estática com redução de movimento, foco/Escape e gestos de toque. Os 24 casos anteriores passaram novamente sem alterações nas outras seções.
 
 As capturas finais de 390px e 1440px foram inspecionadas após o último ajuste. `git diff --check` e `npm run format:check` aprovados. HTTP 200 confirmado no servidor de desenvolvimento, mantido em http://127.0.0.1:5173/#trabalhos. Registro local na mesma branch feat/cinematic-landing; sem criação de remoto ou publicação.
+
+## Retrato profissional — 25/11/2026
+
+Foto enviada diretamente pelo usuário e integrada na seção Sobre. Arquivo PNG original de 791×788px, 516.355 bytes, em public/media/images/mario-gomes.png. Mantidos preto e branco e proporção; dimensões explícitas corrigem a antiga reserva 800×1000 e evitam corte fixo em 4:5. O uso foi solicitado para este site; não foi presumida uma licença geral sobre o arquivo.
+
+Efeitos aplicados pela interface, sem editar a foto: máscara de revelação existente, contorno discreto e zoom interno de 2% em hover com ponteiro preciso e movimento reduzido desativado. Sem vidro, cores ou formas sobre o rosto. Alt em pt-BR e carregamento adiado. Demais seções preservadas.
+
+`npm run check`: saída 0; Prettier, ESLint sem avisos, 5 testes Vitest, TypeScript e build aprovados. Build: HTML 0,96 kB; CSS 24,89 kB (6,30 kB gzip); JS 251,93 kB (79,54 kB gzip), além dos arquivos de mídia. `git diff --check` aprovado.
+
+Teste de navegador acrescentado à suíte existente verifica carregamento real da foto, largura natural de 791px, proporção 791/788, ausência do texto provisório e transform desativado com movimento reduzido. Capturas da seção e do contexto completo são gravadas em test-results/**/portrait.png e portrait-context.png. Resultado final E2E e inspeção visual registrados abaixo.
+
+Resultado final: `npm run test:e2e` com PLAYWRIGHT_BROWSERS_PATH no cache do projeto terminou com saída 0, **46 execuções aprovadas em aproximadamente 1,4 minuto**, incluindo a fotografia em desktop e mobile. Capturas portrait.png de ambos os projetos inspecionadas: foto inteira em sua proporção original, composição com texto ao lado no desktop e abaixo no mobile. HTTP 200 confirmado no servidor de desenvolvimento. Nenhuma falha funcional ou overflow foi observado pela suíte. Sem validação em aparelho físico e sem nova medição de performance. Alteração registrada em commit local na branch feat/cinematic-landing, sem push, merge ou deploy.

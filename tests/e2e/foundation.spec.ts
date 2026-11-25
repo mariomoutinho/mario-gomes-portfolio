@@ -99,3 +99,25 @@ test('spotlights respeitam a interação disponível', async ({ page }) => {
   await expect(touchSpot).toHaveAttribute('style', /opacity: 1/);
   await expect(touchSpot).toHaveAttribute('style', /opacity: 0/);
 });
+
+test('fotografia profissional preserva enquadramento e respeita redução de movimento', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/');
+  const photo = page.getByRole('img', {
+    name: 'Retrato em preto e branco de Mário Gomes olhando para o alto.',
+  });
+  await photo.scrollIntoViewIfNeeded();
+  await expect(photo).toBeVisible();
+  await expect
+    .poll(async () => photo.evaluate((image) => (image as HTMLImageElement).naturalWidth))
+    .toBe(791);
+  const size = await photo.boundingBox();
+  expect(size!.width / size!.height).toBeCloseTo(791 / 788, 2);
+  await expect(page.getByText('Fotografia profissional a adicionar.')).toHaveCount(0);
+  await page.screenshot({ path: testInfo.outputPath('portrait-context.png'), fullPage: true });
+  await page.locator('#sobre').screenshot({ path: testInfo.outputPath('portrait.png') });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await photo.hover();
+  await expect(photo).toHaveCSS('transform', 'none');
+});
