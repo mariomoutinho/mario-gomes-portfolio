@@ -1,14 +1,8 @@
-﻿export const siteContent = {
+export const siteContent = {
   name: 'Mário Gomes',
   whatsapp: '',
   message:
     'Olá, Mário! Conheci seu portfólio e gostaria de conversar sobre um projeto de edição de vídeo.',
-  services: [
-    {
-      title: 'Edição de vídeo',
-      description: 'Ritmo, intenção e identidade visual na construção de narrativas audiovisuais.',
-    },
-  ],
   steps: [
     {
       title: 'Briefing',
@@ -35,3 +29,14 @@
 export const contactUrl = siteContent.whatsapp
   ? `https://wa.me/${siteContent.whatsapp}?text=${encodeURIComponent(siteContent.message)}`
   : undefined;
+
+export const serviceFormats = [
+  { title: 'Reels', description: 'Ritmo e cortes para histórias curtas nas redes.' },
+  { title: 'Stories', description: 'Sequências verticais para compartilhar cada momento.' },
+  { title: 'Casamentos', description: 'Uma narrativa que preserva os detalhes e a emoção.' },
+  { title: 'Formaturas', description: 'Conquistas e memórias reunidas em um filme.' },
+  { title: 'YouTube', description: 'Estrutura e fluidez para conteúdos mais longos.' },
+  { title: 'Institucionais', description: 'Imagens que apresentam a identidade de uma marca.' },
+  { title: 'Eventos', description: 'Os momentos que contam a história do encontro.' },
+  { title: 'Campanhas', description: 'Edição com intenção para comunicar uma ideia.' },
+];

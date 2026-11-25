@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { portfolioWorks, type PortfolioWork } from '../data/portfolio';
-import { CinematicPortfolioMarquee, MarqueeControls } from './cinematic-portfolio-marquee';
+import { CinematicPortfolioMarquee } from './cinematic-portfolio-marquee';
 import { PortfolioVideoPlayer } from '../components/media/portfolio-video-player';
 import styles from './portfolio-section.module.css';
 export function PortfolioSection() {
@@ -8,7 +8,6 @@ export function PortfolioSection() {
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const [reduced, setReduced] = useState(false);
-  const [paused, setPaused] = useState(false);
   const [selected, setSelected] = useState<PortfolioWork | null>(null);
   const [revealed, setRevealed] = useState(false);
   useEffect(() => {
@@ -37,7 +36,7 @@ export function PortfolioSection() {
       id="trabalhos"
       aria-labelledby="portfolio-title"
       className={styles.section}
-      data-running={visible && pageVisible && !paused && !selected && !reduced}
+      data-running={visible && pageVisible && !selected && !reduced}
     >
       <header className={styles.heading} data-revealed={revealed}>
         <p className={styles.eyebrow}>02 / PORTFÓLIO</p>
@@ -50,19 +49,10 @@ export function PortfolioSection() {
       </header>
       <CinematicPortfolioMarquee
         works={portfolioWorks}
-        running={visible && pageVisible && !paused && !selected && !reduced}
+        running={visible && pageVisible && !selected && !reduced}
         reduced={reduced}
         onSelect={setSelected}
       />
-      <div className={styles.bottom}>
-        <MarqueeControls paused={paused} onToggle={() => setPaused(!paused)} />
-        <p>
-          Imagens ilustrativas para apresentar a composição visual.
-          <br />
-          Não representam trabalhos de Mário Gomes.
-        </p>
-        {reduced && <span>Movimento automático desativado pela preferência do dispositivo.</span>}
-      </div>
       {selected && <PortfolioVideoPlayer work={selected} onClose={() => setSelected(null)} />}
     </section>
   );

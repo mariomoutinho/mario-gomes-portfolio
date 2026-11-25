@@ -492,3 +492,68 @@
   border-radius: 12px;
   overflow: hidden;
 }
+
+.positioning {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.positioning > :not(.cameraBackdrop) {
+  position: relative;
+  z-index: 1;
+}
+.cameraBackdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 65%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  filter: grayscale(1);
+  mix-blend-mode: multiply;
+  opacity: 0.16;
+  mask-image: radial-gradient(ellipse at 100% 50%, #000 8%, transparent 75%);
+  pointer-events: none;
+}
+.introduction h1 {
+  padding-block: 0.04em 0.14em;
+}
+@media (max-width: 767px) {
+  .cameraBackdrop {
+    width: 100%;
+    opacity: 0.1;
+    object-position: 50% 35%;
+  }
+}
+
+.services {
+  padding-inline: 0;
+}
+.services > :first-child {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+}
+.services > .foreground {
+  max-width: 1408px;
+  padding-inline: 20px;
+}
+.services > .serviceFormats {
+  position: relative;
+  max-width: none;
+  margin-top: 48px;
+}
+@media (min-width: 768px) {
+  .services > .foreground {
+    padding-inline: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .services > .foreground {
+    padding-inline: 64px;
+  }
+  .services > .serviceFormats {
+    margin-top: 64px;
+  }
+}

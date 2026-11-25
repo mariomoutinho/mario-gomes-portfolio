@@ -1,4 +1,4 @@
-﻿.section {
+.section {
   padding-block: 88px;
   background: #08090d;
   overflow: hidden;
@@ -25,20 +25,6 @@
   max-width: 47ch;
   margin-top: 24px;
 }
-.bottom {
-  margin: 32px auto 0;
-  padding-inline: 20px;
-  max-width: 1408px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 20px 32px;
-}
-.bottom p,
-.bottom > span {
-  color: #a7b2c7;
-  font-size: 12px;
-}
 @media (prefers-reduced-motion: no-preference) {
   .heading[data-revealed='true'] {
     animation: enter 600ms var(--ease-reveal) both;
@@ -58,8 +44,7 @@
   .section {
     padding-block: 112px;
   }
-  .heading,
-  .bottom {
+  .heading {
     padding-inline: 32px;
   }
   .heading {
@@ -73,20 +58,15 @@
   .section {
     padding-block: 128px;
   }
-  .heading,
-  .bottom {
+  .heading {
     padding-inline: 64px;
   }
   .heading h2 {
     max-width: none;
   }
-  .bottom {
-    margin-top: 40px;
-  }
 }
 @media (max-width: 359px) {
-  .heading,
-  .bottom {
+  .heading {
     padding-inline: 16px;
   }
 }

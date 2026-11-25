@@ -1,4 +1,4 @@
-﻿import {
+import {
   useEffect,
   useLayoutEffect,
   useRef,
@@ -6,7 +6,7 @@
   type CSSProperties,
   type PointerEvent,
 } from 'react';
-import { Expand, Pause, Play } from 'lucide-react';
+import { Expand, Play } from 'lucide-react';
 import type { PortfolioWork } from '../data/portfolio';
 import styles from './cinematic-portfolio-marquee.module.css';
 
@@ -311,14 +311,6 @@ function MarqueeTrack({
         </div>
       </div>
     </div>
-  );
-}
-export function MarqueeControls({ paused, onToggle }: { paused: boolean; onToggle: () => void }) {
-  return (
-    <button className={styles.pause} aria-pressed={paused} onClick={onToggle}>
-      {paused ? <Play size={16} /> : <Pause size={16} />}
-      {paused ? 'Retomar movimento' : 'Pausar movimento'}
-    </button>
   );
 }
 export function CinematicPortfolioMarquee({

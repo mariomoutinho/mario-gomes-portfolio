@@ -25,15 +25,9 @@ for (const width of [320, 360, 375, 390, 430, 768, 1280, 1440]) {
   });
 }
 
-test('serviço e timeline funcionam por teclado', async ({ page }) => {
+test('timeline funciona por teclado', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#inicio button').filter({ hasText: /movimento/ })).toHaveCount(0);
-  const service = page.getByRole('button', { name: /Edição de vídeo/ });
-  await service.focus();
-  await page.keyboard.press('Enter');
-  await expect(service).toHaveAttribute('aria-expanded', 'true');
-  await page.keyboard.press('Enter');
-  await expect(service).toHaveAttribute('aria-expanded', 'false');
   const playhead = page.locator('[class*="playhead"]');
   const original = await playhead.evaluate((node) => node.getBoundingClientRect().x);
   await page.getByRole('button', { name: /03\s*Revisão/ }).click();
@@ -85,11 +79,6 @@ test('spotlights respeitam a interação disponível', async ({ page }) => {
   await page.mouse.move(160, 160);
   if (finePointer) await expect(spotlight).toHaveCSS('opacity', '1');
   else await expect(spotlight).toHaveCSS('opacity', '0');
-  const service = page.getByRole('button', { name: /Edição de vídeo/ });
-  await service.click();
-  const touchSpot = page.locator('#servicos [class*="spot"]');
-  await expect(touchSpot).toHaveAttribute('style', /opacity: 1/);
-  await expect(touchSpot).toHaveAttribute('style', /opacity: 0/);
 });
 
 test('fotografia profissional preserva enquadramento e respeita redução de movimento', async ({

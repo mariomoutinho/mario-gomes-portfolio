@@ -65,7 +65,7 @@ for (const width of [320, 390, 430, 768, 1440]) {
   });
 }
 
-test('velocidade, sentidos opostos, continuidade e pausa persistente', async ({ page }) => {
+test('velocidade, sentidos opostos e continuidade', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await openPortfolio(page);
   const top = 'verticalPortfolioTrack';
@@ -107,13 +107,10 @@ test('velocidade, sentidos opostos, continuidade e pausa persistente', async ({ 
       return state.width / (state.duration / 1000);
     })
     .toBeCloseTo(24, 2);
-  await page.getByRole('button', { name: 'Pausar movimento', exact: true }).click();
-  await expect.poll(async () => (await animationState(page, top)).state).toBe('paused');
-  const stopped = (await animationState(page, top)).time;
-  await page.waitForTimeout(2800);
-  expect((await animationState(page, top)).time).toBe(stopped);
-  await page.getByRole('button', { name: 'Retomar movimento', exact: true }).click();
-  await expect.poll(async () => (await animationState(page, top)).state).toBe('running');
+  await expect(page.getByRole('button', { name: /^(Pausar|Retomar) movimento$/ })).toHaveCount(0);
+  await expect(
+    page.getByText('Imagens ilustrativas para apresentar a composição visual.'),
+  ).toHaveCount(0);
 });
 
 test('ampliação acessível, Escape e restauração do foco sem players duplicados', async ({

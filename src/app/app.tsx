@@ -11,7 +11,8 @@ import {
   CinematicReveal,
 } from '../components/motion/cinematic-effects';
 import { ProductionTimeline } from '../sections/production-timeline';
-import { ServiceAccordion } from '../sections/services-section';
+
+import { ServiceFormatsMarquee } from '../sections/service-formats-marquee';
 import { RippleLink } from '../components/ui/ripple-link';
 import { contactUrl } from '../data/site-content';
 import styles from './app.module.css';
@@ -81,7 +82,19 @@ export function App() {
             </a>
           </div>
         </section>
-        <section id="posicionamento" className={`${styles.section} ${styles.light}`}>
+        <section
+          id="posicionamento"
+          className={`${styles.section} ${styles.light} ${styles.positioning}`}
+        >
+          <img
+            className={styles.cameraBackdrop}
+            src={`${import.meta.env.BASE_URL}media/portfolio/creative-production.webp`}
+            alt=""
+            aria-hidden="true"
+            width="600"
+            height="1066"
+            loading="lazy"
+          />
           <p className={styles.eyebrow}>01 / MÁRIO GOMES — EDIÇÃO DE VÍDEO</p>
           <div className={styles.introduction}>
             <CinematicReveal>
@@ -161,7 +174,9 @@ export function App() {
             <p className={styles.sectionCopy}>
               Soluções audiovisuais para diferentes formas de contar histórias.
             </p>
-            <ServiceAccordion />
+          </div>
+          <div className={styles.serviceFormats}>
+            <ServiceFormatsMarquee />
           </div>
         </section>
         <section id="processo" className={`${styles.section} ${styles.process}`}>

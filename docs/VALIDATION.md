@@ -248,3 +248,35 @@ Adicionada transição CSS de opacidade de 350ms ao controle central. O prazo ex
 Validação: npm run check aprovado (formatação, lint, 5 testes Vitest, tipagem e build); npm run test:e2e -- tests/e2e/hero-video.spec.ts aprovado, 6 execuções em 14,8s, desktop e mobile. Inspeção automatizada com movimento permitido confirmou opacidade intermediária 0,185058 durante a transição e opacidade final 0; não é uma troca abrupta. Sem repetição da suíte das outras seções por se tratar de ajuste CSS isolado no controle. git diff --check aprovado.
 
 Publicação concluída: commit bd7ddb0 enviado e workflow https://github.com/mariomoutinho/mario-gomes-portfolio/actions/runs/45658343590 aprovado. Verificação no site público confirmou opacidade intermediária 0,254362 durante o esmaecimento e final 0. Registro documental posterior enviado com [skip ci].
+
+## Prévia local: descendente do título e câmera ao fundo — 25/11/2026
+
+Solicitação explícita para não fazer push desta alteração. Corrigido o recorte inferior do g de ganham com espaço interno no h1, preservando a animação de revelação e a tipografia existente. Seção de posicionamento recebeu uma câmera decorativa usando a imagem ilustrativa já existente creative-production.webp, sem nova mídia ou dependências. Imagem em tons de cinza, multiplicação suave, máscara radial que esmaece à esquerda e opacidade de 16% no desktop/10% no celular; camada atrás do conteúdo, sem eventos de ponteiro, alt vazio e aria-hidden. Mantida legibilidade dos textos e dos links.
+
+npm run check aprovado: formatação, lint, 5 testes Vitest, TypeScript e build. Capturas locais .cache/positioning-camera-{390,1440,1616}.png inspecionadas: descendente do g inteiro, câmera esmaecida e texto legível; ausência de overflow horizontal. npm run test:e2e -- tests/e2e/foundation.spec.ts aprovado: 26 execuções em 56,2s, desktop e mobile, verificando layout e navegação do build. git diff --check aprovado. Sem teste em aparelho físico. Alteração somente local; sem commit, push ou deploy.
+
+## Prévia local: limpeza abaixo das esteiras — 25/11/2026
+
+Removidos o botão Pausar/Retomar movimento e o informativo abaixo das esteiras, conforme captura fornecida. Eliminados o estado de pausa manual, o componente MarqueeControls e os estilos exclusivos da faixa inferior. Mantidos os rótulos ilustrativos dos cards, a ampliação, a exploração manual, pausa por hover/foco, redução de movimento e pausa fora da viewport/aba oculta. Preservadas as alterações locais anteriores no título e no fundo de câmera. Mantida a solicitação de revisão local: sem commit, push ou deploy.
+
+npm run check aprovado (formatação, lint, 5 testes Vitest, tipagem e build). npm run test:e2e -- tests/e2e/portfolio.spec.ts aprovado: 20 execuções em 35,1s, desktop e mobile, cobrindo ausência dos elementos removidos, dimensões, velocidade, continuidade, navegação, foco e gestos. git diff --check aprovado; sem teste em aparelho físico.
+
+## Prévia local: serviços de ponta a ponta e esteira de formatos — 25/11/2026
+
+Corrigido o corte preto lateral da seção Serviços: a camada CinematicLightFlow recebia o max-width da regra genérica section > *, limitando o fundo junto com o conteúdo. O fundo agora ocupa toda a largura; textos continuam em contêiner alinhado e a nova esteira ocupa a faixa inteira. Mantidos o accordion Edição de vídeo e as alterações locais anteriores.
+
+Adicionados formatos sugeridos e autorizados pelo pedido: Reels, Stories, Casamentos, Formaturas, YouTube, Institucionais, Eventos e Campanhas, com descrições de edição, sem promessas de captação ou histórico comercial inventado. Oito cards em loop CSS contínuo, duplicação aria-hidden/inert, pausa por hover/foco e fora da viewport/aba oculta. Com movimento reduzido, lista única estática com rolagem horizontal nativa; navegação por teclado disponível. Sem dependências novas. Mantida a revisão local: sem commit, push ou deploy.
+
+npm run check final aprovado (formatação, lint, 5 testes Vitest, tipagem e build). Uma falha na aplicação inicial da edição interrompeu a primeira checagem; o arquivo foi restaurado com as alterações locais anteriores preservadas e a checagem repetida com sucesso. Capturas .cache/services-full-width-{390,1432}.png inspecionadas: fundo com x=0 e largura igual à viewport, sem corte lateral ou overflow horizontal. Novos E2E verificam largura do fundo, oito formatos, duplicação inacessível, rolagem com teclado, accordion, animação e pausas. Sem teste em aparelho físico.
+
+Resultado: npm run test:e2e -- tests/e2e/foundation.spec.ts tests/e2e/services.spec.ts aprovado, 34 execuções em 1,2 minuto, desktop e mobile. git diff --check aprovado. Todas as alterações continuam somente na prévia local para revisão.
+
+## Prévia local: remoção do bloco Edição de vídeo — 25/11/2026
+
+Removido o accordion Edição de vídeo indicado na captura. A seção Serviços apresenta agora o título, a introdução e diretamente a esteira de formatos. Eliminados o componente ServiceAccordion, seu CSS e os dados usados exclusivamente pelo bloco; testes antigos de abertura e spotlight do accordion foram retirados, mantendo timeline, spotlight da abertura e verificações da esteira. Alterações locais anteriores preservadas. Sem commit, push ou deploy.
+
+npm run check aprovado (formatação, lint, 5 testes Vitest, tipagem e build). Prévia em 390px e 1432px capturada novamente: fundo continua de ponta a ponta, seção mais compacta, sem overflow horizontal. npm run test:e2e -- tests/e2e/foundation.spec.ts tests/e2e/services.spec.ts aprovado: 34 execuções em 1,1 minuto em desktop e mobile, incluindo ausência do bloco removido e navegação. Captura mobile final inspecionada. Sem teste em aparelho físico.
+
+## Publicação das alterações locais revisadas — 25/11/2026
+
+Usuário autorizou expressamente o push após revisar a prévia. O envio reúne correção do g e câmera esmaecida no posicionamento, remoção do controle/informativo abaixo do portfólio, serviços de ponta a ponta com esteira de oito categorias e remoção do accordion Edição de vídeo. Preservadas as verificações registradas em cada etapa; npm run format:check e git diff --check repetidos e aprovados antes do envio. Mantida a branch feat/cinematic-landing, sem merge na main.
