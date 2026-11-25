@@ -9,3 +9,4 @@ Escopo: este repositório independente. Ler README e docs antes de editar.
 - Executar npm run check e testes E2E do build quando houver comportamento afetado. Registrar comandos, resultados e limitações em docs/VALIDATION.md.
 - Versionar package-lock.json; ignorar caches, dist, relatórios, .env e credenciais.
 - Não publicar, criar remoto, fazer push ou deploy sem autorização explícita. Não inventar licença, permissões de mídia ou dados comerciais.
+- Autorização permanente do usuário: ao concluir e validar as alterações solicitadas neste projeto, realizar commit e push para o remoto origin na branch de trabalho, incluindo as próximas alterações, sem pedir nova confirmação. O push não autoriza merge na main nem publicação em outros destinos.
