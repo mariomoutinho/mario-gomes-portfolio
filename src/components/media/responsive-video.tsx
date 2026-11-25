@@ -20,6 +20,16 @@ export function ResponsiveVideo({
   const [muted, setMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [failed, setFailed] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const [interaction, setInteraction] = useState(0);
+  const revealControls = () => {
+    setControlsVisible(true);
+    setInteraction((value) => value + 1);
+  };
+  useEffect(() => {
+    const timer = window.setTimeout(() => setControlsVisible(false), 3000);
+    return () => window.clearTimeout(timer);
+  }, [interaction]);
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
@@ -54,7 +64,11 @@ export function ResponsiveVideo({
   }, [autoPlay]);
   return (
     <div className={styles.player}>
-      <div className={styles.stage}>
+      <div
+        className={styles.stage}
+        data-controls-visible={controlsVisible}
+        onPointerDown={revealControls}
+      >
         <video
           ref={ref}
           className={source.rotateToLandscape ? styles.rotated : undefined}

@@ -36,6 +36,14 @@
   align-items: start;
   gap: 8px;
 }
+.stage[data-controls-visible='false'] .controls {
+  opacity: 0;
+  pointer-events: none;
+}
+.stage:has(button:focus-visible) .controls {
+  opacity: 1;
+  pointer-events: auto;
+}
 .controls button {
   display: inline-flex;
   align-items: center;
