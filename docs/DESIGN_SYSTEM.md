@@ -1,16 +1,16 @@
 ﻿# Design system — implementação autorizada
 
-Especificação fornecida pelo usuário em 25/11/2026, reproduzida abaixo como fonte única da direção visual.
+Especificação fornecida pelo usuário em 25/11/2026, reproduzida abaixo como fonte única da direção visual. A atualização Cinematic Portfolio Marquee, ao final deste documento, substitui exclusivamente as regras anteriores do Ato 03; as demais seções são preservadas.
 
 ## Estado da integração
 
 - Paleta, tipografia e movimento centralizados em `src/styles/tokens.css`. Manrope variável e IBM Plex Mono regular servidas localmente em `public/fonts`, acompanhadas das licenças OFL obtidas no repositório oficial google/fonts.
 - Composição mobile first, margens de 16/20/32/64px, conteúdo até 1280px e cortes entre superfícies claras e escuras.
-- Componentes: Header com dialog modal, CinematicAmbientLight, CinematicLightFlow, CinematicReveal, ResponsiveVideo, PortfolioGallery, ServiceAccordion, ProductionTimeline e RippleLink.
+- Componentes: Header com dialog modal, CinematicAmbientLight, CinematicLightFlow, CinematicReveal, ResponsiveVideo, CinematicPortfolioMarquee, MarqueeTrack, PortfolioMediaCard, PortfolioVideoPlayer, MarqueeControls, ServiceAccordion, ProductionTimeline e RippleLink.
 - Movimento ambiental controlado por IntersectionObserver, visibilidade do documento, preferência de movimento reduzido e pausa global. Revelações executadas uma vez; conteúdo permanece disponível sem observer.
-- Não há material audiovisual, fotografia, marca, lista de projetos ou contato no repositório. Os espaços correspondentes são identificados como pendentes. Nenhuma imagem genérica ou projeto fictício foi adicionado.
-- `src/data/media.ts` recebe showreel, fotografia e projetos reais; `src/data/site-content.ts` recebe serviços, etapas e WhatsApp. Somente edição de vídeo foi incluída como serviço, por ser a atividade fornecida no pedido. Etapas e textos do processo são provisórios e exigem validação profissional.
-- Sem mídia, não há reprodução na página atual, modal ampliado ou parallax aplicado. O player integrado está preparado para vídeo inline, mute, reprodução manual, pausa dos demais vídeos, progresso, poster e descrição textual. Autoplay só é tentado sem redução de movimento e sem conexão econômica/lenta detectada. Legendas precisam ser avaliadas por vídeo antes de integrar material com fala.
+- Não há vídeos definitivos, fotografia profissional, marca ou contato no repositório. A atualização autoriza 12 imagens ilustrativas locais exclusivamente no portfólio; elas não representam trabalhos, clientes ou serviços de Mário Gomes. Os demais espaços permanecem pendentes.
+- `src/data/media.ts` recebe showreel e fotografia; `src/data/portfolio.ts` centraliza os itens das esteiras, créditos e futuras fontes de vídeo; `src/data/site-content.ts` recebe serviços, etapas e WhatsApp. Somente edição de vídeo foi incluída como serviço, por ser a atividade fornecida no pedido. Etapas e textos do processo são provisórios e exigem validação profissional.
+- Sem vídeos definitivos, a página atual amplia imagens ilustrativas no modal acessível; não há parallax aplicado. O modal oferece vídeo nativo e legendas ao preencher videoSrc e captions. O player integrado está preparado para vídeo inline, mute, reprodução manual, pausa dos demais vídeos, progresso, poster e descrição textual. Autoplay só é tentado sem redução de movimento e sem conexão econômica/lenta detectada. Legendas precisam ser avaliadas por vídeo antes de integrar material com fala.
 - CTA final indisponível até informar WhatsApp real. Ripple e borda animada são implementados no link comercial que aparece ao configurar o número.
 - FAQ, ferramentas e prova social omitidos por ausência de conteúdo verificado. Logotipo substituído apenas pelo nome tipográfico permitido. Favicon de marca e imagem OG aguardam material aprovado; domínio, canonical, sitemap e indexação aguardam publicação autorizada.
 - Metas LCP/INP/CLS ainda não foram medidas; dependem também da mídia final. Não há declaração de conformidade completa de acessibilidade.
@@ -1324,3 +1324,552 @@ Evite criar múltiplos documentos com conteúdos repetidos.
 Não declare testes, métricas ou resultados que não tenham sido efetivamente verificados.
 
 Implemente agora a landing page conforme esta especificação.
+
+## Integração da atualização Cinematic Portfolio Marquee
+
+- Alteração restrita ao Ato 03. A antiga galeria estática foi substituída; cabeçalho, abertura, posicionamento, sobre, serviços, processo, contato e rodapé não foram redesenhados.
+- Componentes na seção de portfólio e modal em components/media. Sem novas dependências. Web Animations API anima somente transform, com tempo calculado pela largura medida / 24 ou 30 px/s, sentidos opostos e interpolação linear. ResizeObserver recalcula tamanho e repetições; não há loop JavaScript por frame.
+- Três grupos visuais permitem normalizar a posição sem lacunas. Apenas 12 itens originais ficam na árvore de acessibilidade; cópias não entram na sequência de Tab. Em movimento reduzido há apenas os dois grupos originais, navegáveis horizontalmente.
+- Interação usa rolagem horizontal nativa, preserva pan vertical e distingue deslocamentos acima de 8px. A transformação corrente é incorporada à posição de rolagem na pausa manual; a retomada após 2,5s normaliza a fase equivalente. Setas do teclado exploram a esteira focalizada; Tab permite selecionar cada item. Foco de teclado e hover apropriado pausam a trilha; pausa local/global, modal, documento oculto e seção fora da viewport têm prioridade sobre retomada automática.
+- Apenas o cabeçalho textual recebe reveal de 600ms/16px. Fundo radial estático, máscara lateral de 16px mobile/40px desktop, cards 9:16 e 16:9 e espaçamento de 16/24px entre trilhas. Não há parallax ou luz animada nesta seção.
+- Dados: id/title/category/orientation/posterSrc/posterAlt/videoSrc/isPlaceholder/sourceCredit e captions opcional. Para integrar um trabalho real, substituir título, categoria, capa, alt e crédito, preencher videoSrc e marcar isPlaceholder=false. Legendas VTT em captions quando disponíveis. Imagens das trilhas não carregam vídeo; existe apenas um player no modal selecionado, com controles nativos, volume, Escape, botão de fechar e restauração de foco.
+- As 12 imagens WebP totalizam aproximadamente 824 kB. Cópias reutilizam as mesmas URLs locais; loading=lazy. São referências visuais e os títulos são nomes ilustrativos, não nomes de projetos reais.
+- Origem dos recursos: imagens oficiais em images.unsplash.com, identificadas individualmente por sourceCredit em src/data/portfolio.ts. Licença consultada: https://unsplash.com/license, que permite baixar, copiar e usar imagens, inclusive comercialmente, sob suas condições; a licença não implica cessão de direitos sobre marcas ou pessoas retratadas. Nenhum material do site de referência foi copiado. Fotografias não receberam filtros uniformes. Downloads em WebP com fit=crop e tamanhos 600×1066/800×450; os 12 enquadramentos foram inspecionados.
+- A referência ltaudiovisual.com.br/editorserio não foi acessível pela ferramenta de leitura; o mecanismo segue os parâmetros explícitos da atualização, sem inferência de sua identidade visual.
+
+# ATUALIZAÇÃO DE ESPECIFICAÇÃO VISUAL
+
+## Mário Gomes — Cinematic Portfolio Marquee
+
+### 1. Escopo da alteração
+
+Substitua a composição de galeria estática anteriormente definida para o Ato 03 — Portfólio Audiovisual por uma galeria dinâmica composta por duas esteiras infinitas de conteúdo audiovisual, movimentando-se em sentidos opostos.
+
+Preserve integralmente as demais decisões artísticas, arquiteturais e comerciais estabelecidas na especificação Beyond the Frame.
+
+Não redesenhe outras seções.
+
+Não explore outras propostas de layout para o portfólio.
+
+Implemente exatamente a direção visual especificada neste documento.
+
+### 2. Referência visual
+
+Utilize como referência comportamental a seção de portfólio disponível em:
+
+https://ltaudiovisual.com.br/editorserio
+
+O comportamento desejado é o deslocamento contínuo de duas esteiras de trabalhos audiovisuais em sentidos opostos.
+
+Não reproduza a identidade visual, as cores, os textos, os vídeos ou os elementos comerciais do site de referência.
+
+Adapte exclusivamente o mecanismo de apresentação do portfólio para a identidade de Mário Gomes.
+
+A referência já foi analisada durante o planejamento artístico. Não é necessário realizar uma nova pesquisa extensa.
+
+### 3. Nome do componente
+
+CinematicPortfolioMarquee
+
+Implemente os seguintes componentes, adaptando os nomes às convenções existentes quando necessário:
+
+- PortfolioSection
+- CinematicPortfolioMarquee
+- MarqueeTrack
+- PortfolioMediaCard
+- PortfolioVideoPlayer
+- MarqueeControls
+
+Evite abstrações desnecessárias.
+
+### 4. Direção artística
+
+Fundo principal da seção: #08090D.
+
+Utilize a linguagem editorial cinematográfica definida anteriormente.
+
+Identificador editorial:
+
+02 / PORTFÓLIO
+
+Título:
+
+Histórias em movimento.
+
+A palavra movimento deverá utilizar o azul luminoso da identidade visual.
+
+Descrição provisória:
+
+Diferentes formatos. Diferentes narrativas. Uma mesma atenção a cada frame.
+
+Preserve os textos comerciais já aprovados, caso existam.
+
+A seção deverá transmitir dinamismo, variedade de estilos audiovisuais e qualidade de composição.
+
+As imagens serão protagonistas.
+
+Não aplique filtros cromáticos uniformes sobre todas as imagens.
+
+### 5. Estrutura visual
+
+A seção será composta por:
+
+1. Identificador editorial.
+2. Título.
+3. Descrição breve.
+4. Esteira superior de trabalhos verticais.
+5. Esteira inferior de trabalhos horizontais.
+6. Controles de movimento.
+7. Indicação provisória de conteúdo ilustrativo.
+
+As duas esteiras deverão ocupar toda a largura disponível da seção.
+
+Permita que os cards sejam parcialmente cortados nas extremidades da viewport, criando uma sensação de continuidade.
+
+O cabeçalho textual deverá respeitar as margens editoriais globais do projeto.
+
+As esteiras deverão utilizar uma composição full-bleed, ultrapassando as margens horizontais do texto.
+
+Não permita que a largura interna das esteiras provoque overflow horizontal na página.
+
+### 6. Esteira superior
+
+Identificador técnico: verticalPortfolioTrack.
+
+Direção: esquerda para direita.
+
+Formato dos cards: 9:16.
+
+Quantidade inicial: seis trabalhos ilustrativos distintos.
+
+Dimensões mobile:
+
+- Largura: 144px.
+- Altura: 256px.
+- Espaçamento: 12px.
+
+Dimensões desktop:
+
+- Largura: 200px.
+- Altura proporcional ao formato 9:16.
+- Espaçamento: 20px.
+
+Velocidade de deslocamento: 24 pixels por segundo.
+
+Movimento linear, contínuo e infinito.
+
+Não utilize aceleração e desaceleração periódicas durante o deslocamento normal.
+
+A duração da animação deverá ser calculada com base na largura total do conjunto de cards para preservar uma velocidade consistente.
+
+### 7. Esteira inferior
+
+Identificador técnico: horizontalPortfolioTrack.
+
+Direção: direita para esquerda.
+
+Formato dos cards: 16:9.
+
+Quantidade inicial: seis trabalhos ilustrativos distintos.
+
+Dimensões mobile:
+
+- Largura: 240px.
+- Altura: 135px.
+- Espaçamento: 12px.
+
+Dimensões desktop:
+
+- Largura: 320px.
+- Altura: 180px.
+- Espaçamento: 20px.
+
+Velocidade de deslocamento: 30 pixels por segundo.
+
+Movimento linear, contínuo e infinito.
+
+Distância vertical entre as esteiras:
+
+- Mobile: 16px.
+- Desktop: 24px.
+
+As velocidades deverão permanecer diferentes para evitar uma simetria mecânica excessiva.
+
+### 8. Loop infinito
+
+Implemente um mecanismo de seamless infinite marquee.
+
+Duplique a sequência visual de cards quando necessário para garantir continuidade.
+
+A transição entre o final e o início da sequência não poderá apresentar:
+
+- Saltos visuais.
+- Espaços vazios inesperados.
+- Piscadas.
+- Reinicializações perceptíveis.
+- Mudanças bruscas de velocidade.
+- Deslocamentos involuntários do layout.
+
+Calcule a distância do deslocamento considerando a largura real dos cards e seus espaçamentos.
+
+Recalcule as dimensões quando a viewport for redimensionada.
+
+As duplicações deverão ser tratadas como elementos de continuidade visual.
+
+Não duplique desnecessariamente os elementos na árvore de acessibilidade.
+
+Não duplique players de vídeo.
+
+Não utilize bibliotecas de carrossel pesadas quando uma implementação com CSS e JavaScript nativos for suficiente.
+
+### 9. Imagens ilustrativas temporárias
+
+Os vídeos definitivos ainda não estão disponíveis.
+
+Nesta etapa, utilize doze imagens ilustrativas distintas, sendo seis verticais e seis horizontais.
+
+As imagens deverão possuir qualidade visual suficiente para avaliar a composição artística da landing page.
+
+Não utilize retângulos cinzas, skeletons permanentes, imagens com a palavra placeholder ou fundos monocromáticos como substitutos.
+
+Utilize imagens provenientes de materiais autorizados, recursos existentes ou bancos de imagens com licenças compatíveis.
+
+Armazene cópias locais quando a licença permitir, evitando dependência de URLs externas instáveis.
+
+Registre a origem e a licença dos recursos utilizados.
+
+Caso o ambiente não permita obter imagens externas, utilize os materiais ilustrativos disponíveis no projeto ou crie composições vetoriais provisórias, documentando essa limitação.
+
+### 10. Temáticas das imagens verticais
+
+Utilize referências visuais que representem:
+
+1. Retrato documental.
+2. Motion Design abstrato.
+3. Conteúdo digital para redes sociais.
+4. Publicidade de produto.
+5. Narrativa urbana.
+6. Produção audiovisual criativa.
+
+Esses itens representam categorias ilustrativas de composição, e não serviços comprovadamente prestados pelo profissional.
+
+### 11. Temáticas das imagens horizontais
+
+Utilize referências visuais que representem:
+
+1. Paisagem cinematográfica.
+2. Produção institucional.
+3. Entrevista documental.
+4. Publicidade comercial.
+5. Narrativa humana.
+6. Produção audiovisual artística.
+
+Explore variedade de enquadramentos, iluminação, contrastes e cores.
+
+Não apresente as imagens ilustrativas como trabalhos reais de Mário Gomes.
+
+### 12. Estrutura de dados
+
+Centralize os trabalhos em um arquivo de dados dedicado.
+
+Cada item deverá possuir os seguintes campos:
+
+- id
+- title
+- category
+- orientation
+- posterSrc
+- posterAlt
+- videoSrc
+- isPlaceholder
+- sourceCredit, quando aplicável
+
+Valores permitidos para orientation:
+
+- portrait
+- landscape
+
+Enquanto o vídeo definitivo não estiver disponível:
+
+- videoSrc deverá ser null.
+- isPlaceholder deverá ser true.
+
+A substituição futura das imagens e a inclusão dos vídeos deverão ser realizadas principalmente por meio da atualização desse arquivo de dados.
+
+Não exija alterações na estrutura do carrossel para cadastrar novos trabalhos.
+
+### 13. Composição de cada card
+
+Cada card deverá conter:
+
+- Imagem preenchendo o enquadramento.
+- Overlay inferior em gradiente escuro.
+- Categoria ou identificação ilustrativa.
+- Controle central de reprodução quando o vídeo estiver disponível.
+- Identificação discreta de conteúdo provisório quando isPlaceholder for true.
+
+Estilização:
+
+- Border-radius: 8px.
+- Borda: 1px solid rgba(255,255,255,0.12).
+- Background: #101B33.
+- Overflow: hidden.
+- Object-fit: cover.
+
+Preserve o enquadramento relevante das imagens.
+
+Não corte rostos, textos ou elementos essenciais sem necessidade.
+
+Não adicione sombras exageradas ou bordas neon aos cards.
+
+### 14. Glassmorphism no controle de reprodução
+
+Quando o vídeo estiver disponível, utilize um botão circular central.
+
+Dimensões:
+
+- Mobile: 44px.
+- Desktop: 52px.
+
+Estilização:
+
+- Background: rgba(255,255,255,0.15).
+- Backdrop-filter: blur(8px).
+- Border: 1px solid rgba(255,255,255,0.35).
+- Border-radius: 50%.
+- Ícone branco.
+- Transição: 180ms.
+
+Durante a fase provisória, poderá existir uma representação visual semelhante ao controle de reprodução, acompanhada de uma indicação de que o vídeo será disponibilizado posteriormente.
+
+Não apresente um botão aparentemente funcional que não execute nenhuma ação.
+
+Ao tocar em um trabalho provisório, permita abrir uma visualização ampliada da imagem, identificando-a claramente como conteúdo ilustrativo.
+
+### 15. Comportamento mobile
+
+O movimento automático deverá funcionar sem depender de hover.
+
+Ao iniciar uma interação por toque:
+
+- Pause a esteira correspondente.
+- Permita exploração horizontal manual.
+- Preserve a rolagem vertical nativa da página.
+- Diferencie gestos horizontais de gestos verticais.
+- Evite que pequenos deslocamentos sejam interpretados como seleção de um card.
+
+Após concluir a interação manual, retome suavemente a movimentação automática depois de aproximadamente 2,5 segundos, caso o usuário não tenha solicitado pausa permanente.
+
+A retomada deverá acontecer a partir da posição visual atual, sem saltos.
+
+Não utilize preventDefault indiscriminadamente nos eventos de toque.
+
+Não bloqueie a rolagem vertical da landing page.
+
+Não implemente scroll hijacking.
+
+### 16. Comportamento desktop
+
+Em dispositivos com suporte a hover e ponteiro preciso:
+
+- Pause a esteira correspondente ao posicionar o cursor sobre um card.
+- Permita examinar a imagem.
+- Aplique um zoom interno discreto de até 1.03.
+- Aumente moderadamente a luminosidade do controle de reprodução.
+- Retome a movimentação suavemente quando o cursor sair.
+
+Não altere as dimensões externas do card durante o hover.
+
+Não aplique Mouse Spotlight adicional nessa seção.
+
+O movimento das esteiras já constitui o efeito visual protagonista do portfólio.
+
+### 17. Reprodução dos vídeos definitivos
+
+Prepare a estrutura para receber arquivos audiovisuais posteriormente.
+
+Quando videoSrc estiver preenchido, a seleção do trabalho deverá abrir um reprodutor ampliado e acessível.
+
+O reprodutor deverá:
+
+- Respeitar a proporção original do vídeo.
+- Possuir controles de reprodução.
+- Permitir ajuste de volume.
+- Possuir botão de fechamento.
+- Permitir fechamento por Escape.
+- Gerenciar o foco adequadamente.
+- Oferecer suporte a legendas quando disponíveis.
+
+Pause ambas as esteiras durante a reprodução.
+
+Nunca reproduza simultaneamente todos os vídeos das esteiras.
+
+Não carregue arquivos de vídeo pesados apenas para executar a animação dos cards.
+
+Utilize as imagens de capa nas esteiras.
+
+Carregue o vídeo sob demanda quando o visitante selecionar um trabalho.
+
+Ao fechar o reprodutor, restaure o estado anterior de movimentação e o foco do visitante.
+
+### 18. Controle de pausa
+
+Adicione um controle discreto e acessível para pausar ou retomar ambas as esteiras.
+
+Posicione o controle abaixo da segunda esteira, integrado à composição editorial.
+
+Estados:
+
+- Pausar movimento.
+- Retomar movimento.
+
+O controle deverá possuir área de toque mínima de 44px.
+
+Utilize um ícone acompanhado de texto.
+
+A pausa solicitada pelo usuário deverá ter prioridade sobre os mecanismos automáticos de retomada.
+
+### 19. Tratamento das extremidades
+
+Aplique uma máscara horizontal discreta nas extremidades das esteiras.
+
+Utilize mask-image com gradiente linear.
+
+A região de transparência deverá ocupar aproximadamente:
+
+- Mobile: 12px a 20px de cada extremidade.
+- Desktop: 32px a 48px de cada extremidade.
+
+O efeito deverá suavizar a entrada e saída dos cards.
+
+Não esconda uma parte excessiva das imagens.
+
+Caso a propriedade CSS não esteja disponível, mantenha o recorte natural da esteira.
+
+### 20. Iluminação ambiental
+
+Utilize um gradiente radial estático muito discreto atrás das duas esteiras.
+
+Cor:
+
+rgba(49,93,205,0.08).
+
+O gradiente deverá criar uma leve atmosfera azul sem modificar as cores das imagens.
+
+Não utilize Aurora Background animado nessa seção.
+
+Não utilize Animated Gradient Border nos cards.
+
+Não utilize Organic Blob Morphing atrás do portfólio.
+
+Não utilize parallax adicional.
+
+A movimentação horizontal das duas esteiras será suficiente para estabelecer a personalidade visual da seção.
+
+### 21. Animação de entrada
+
+Aplique Scroll Reveal somente ao cabeçalho textual da seção.
+
+Parâmetros:
+
+- Opacidade inicial: 0.
+- Deslocamento vertical inicial: 16px.
+- Duração: 600ms.
+- Execução única.
+
+As esteiras poderão receber uma transição inicial de opacidade de aproximadamente 400ms.
+
+Não execute animações individuais de entrada em todos os cards duplicados.
+
+### 22. Desempenho
+
+Priorize CSS transform para deslocamento das esteiras.
+
+Utilize JavaScript apenas para os comportamentos que necessitem de controle adicional, incluindo interação manual, cálculo das dimensões e gerenciamento do estado de reprodução.
+
+Utilize Intersection Observer para identificar quando a seção estiver visível.
+
+Pause as animações quando:
+
+- A seção estiver fora da viewport.
+- A aba do navegador não estiver visível.
+- Um trabalho estiver sendo reproduzido.
+- O visitante solicitar pausa.
+- A preferência de redução de movimento estiver ativa.
+
+Otimize as imagens em formatos WebP ou AVIF quando apropriado.
+
+Defina dimensões explícitas para os cards.
+
+Evite layout shifts.
+
+Não utilize filtros blur animados nas imagens.
+
+Não implemente renderização por Canvas ou WebGL.
+
+### 23. Acessibilidade
+
+Respeite prefers-reduced-motion.
+
+Quando essa preferência estiver ativa:
+
+- Desative a movimentação automática.
+- Remova as duplicações visuais desnecessárias.
+- Apresente duas galerias horizontais navegáveis manualmente.
+- Preserve todos os trabalhos.
+- Mantenha as informações acessíveis.
+
+Garanta:
+
+- Navegação por teclado.
+- Foco visível.
+- Textos alternativos apropriados.
+- Controles acessíveis.
+- Pausa do movimento.
+- Alternativas à interação por toque.
+- Contraste adequado.
+
+As cópias utilizadas para continuidade da animação não deverão criar controles duplicados na navegação por teclado.
+
+### 24. Validação obrigatória
+
+Verifique:
+
+- Movimento da primeira esteira para a direita.
+- Movimento da segunda esteira para a esquerda.
+- Continuidade infinita sem saltos.
+- Velocidades diferentes.
+- Proporções corretas dos cards.
+- Qualidade das imagens provisórias.
+- Ausência de overflow horizontal.
+- Funcionamento da pausa.
+- Exploração manual por toque.
+- Preservação da rolagem vertical.
+- Retomada suave após interação.
+- Compatibilidade com redução de movimento.
+- Ausência de players duplicados.
+- Possibilidade de cadastrar novos trabalhos.
+- Possibilidade de adicionar os vídeos posteriormente.
+- Responsividade em 320px, 390px, 430px, 768px e 1440px.
+
+Execute os testes definidos no AGENTS.md.
+
+Realize os commits e procedimentos de integração com o GitHub conforme a governança previamente estabelecida.
+
+### 25. Restrições finais
+
+Não invente trabalhos, clientes ou resultados comerciais de Mário Gomes.
+
+Não utilize os vídeos pertencentes ao site de referência.
+
+Não apresente imagens ilustrativas como trabalhos efetivamente realizados pelo profissional.
+
+Não redesenhe a identidade visual.
+
+Não modifique outras seções.
+
+Não adicione efeitos visuais que concorram com a movimentação das esteiras.
+
+Não solicite novas decisões artísticas.
+
+Implemente a galeria conforme esta especificação, priorizando fidelidade visual, desempenho mobile e facilidade de substituição futura dos materiais audiovisuais.

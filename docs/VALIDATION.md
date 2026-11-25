@@ -81,3 +81,34 @@ Sem medição de LCP, INP ou CLS; os valores da especificação são metas. Test
 ### Resultado final E2E
 
 `$env:PLAYWRIGHT_BROWSERS_PATH = "$PWD/.cache/ms-playwright"; npm run test:e2e`: saída 0, **24 execuções aprovadas em 52,7s**. Oito larguras (320, 360, 375, 390, 430, 768, 1280 e 1440px) em Chromium desktop e emulação mobile; verificação de HTTP/rede/console, hierarquia, noindex, ausência de overflow, menu/foco/Escape/seleção, serviços por teclado, mudança contextual e deslocamento do playhead, pausa global, redução de movimento e spotlights adaptados ao dispositivo. Preview encerrado normalmente na rodada final. O link de desenvolvimento permanece ativo em http://127.0.0.1:5173/.
+
+## Atualização Cinematic Portfolio Marquee — 25/11/2026
+
+Escopo: somente Ato 03 e sua integração no App, preservando as demais seções. Estado inicial: branch feat/cinematic-landing com a landing anterior ainda sem commit. Essa entrega anterior foi preservada no commit local `21fe935` antes da atualização; os históricos de validação acima continuam como registro das etapas anteriores.
+
+### Implementação e recursos
+
+Duas esteiras full-bleed com capas WebP, formatos 9:16 e 16:9, velocidades 24/30 px/s em sentidos opostos, repetição visual medida com ResizeObserver e transform pela Web Animations API. Pausa local/global, redução de movimento, hover apropriado, foco, visibilidade de seção/documento e modal. Rolagem horizontal nativa por toque e teclado, retomada após 2,5s sem perder a posição equivalente, supressão de seleção após deslocamento acima de 8px. Sem novo pacote npm, player duplicado ou carregamento de vídeo nas trilhas.
+
+Doze imagens ilustrativas em public/media/portfolio, 823.380 bytes no total, com origem individual e licença no campo sourceCredit de src/data/portfolio.ts. A licença oficial Unsplash foi consultada e os arquivos locais foram inspecionados visualmente. Os títulos e categorias são ilustrativos e não são apresentados como projetos reais. Não foi usado material do site de referência, que não abriu pela ferramenta de leitura.
+
+### Comandos e evidências
+
+- `npm run check`: Prettier, ESLint sem avisos, 5 testes Vitest, TypeScript estrito e build aprovados.
+- Testes unitários cobrem a manutenção da landing, ampliação ilustrativa, cadastro adicional por dados e estrutura de vídeo/legendas sob demanda com fonte somente de teste, sem download de vídeo real.
+- `npm run test:e2e -- tests/e2e/portfolio.spec.ts`: rodada intermediária aprovada com 20 execuções, incluindo touchStart/touchMove/touchEnd reais emulados pelo Chromium. Os gestos horizontais alteram scrollLeft, não abrem o modal e retomam o movimento; gestos verticais alteram scrollY.
+- `npm run test:e2e`: regressão intermediária com 44 execuções aprovadas em aproximadamente 1,2 minuto; viewport, menu, teclado, timeline, serviços, preferências de movimento e iluminação anterior preservados. A rodada final após ajuste do espaçamento e hover é registrada abaixo.
+- Capturas da seção em `test-results/**/marquee-390.png` e `marquee-1440.png` inspecionadas. Demais evidências em marquee-320/430/768.png e capturas completas da landing. Capturas, traces, relatório e dist permanecem ignorados.
+- A checagem inicial de imagens falhou por esperar todas as cópias fora da tela com loading=lazy. A checagem visual força eager apenas dentro do teste para verificar todos os arquivos; a aplicação conserva carregamento adiado. Substitutos de ResizeObserver e matchMedia foram acrescentados ao jsdom; as medições e animações reais são verificadas no navegador.
+
+### Limitações
+
+Vídeos definitivos seguem ausentes. A estrutura aceita videoSrc e captions, e sua montagem é testada; decodificação de vídeo real, sincronização de legendas e controles nativos com mídia definitiva ainda dependem desses arquivos. Sem testes em aparelhos físicos, Safari ou Firefox, sem métricas de campo LCP/INP/CLS. A mudança de visibilidade do documento é simulada por evento no E2E; ela não constitui medição de consumo em uma aba suspensa pelo sistema operacional.
+
+Nenhum remoto Git foi configurado; conta/organização, visibilidade e autorização de publicação continuam pendentes conforme governança existente. Sem push, merge ou deploy.
+
+### Resultado final da atualização
+
+Build final: HTML 0,96 kB; CSS 24,40 kB (6,23 kB gzip); JS 251,60 kB (79,41 kB gzip), além dos recursos locais. `npm run check` terminou com saída 0 e 5 testes aprovados. `$env:PLAYWRIGHT_BROWSERS_PATH = "$PWD/.cache/ms-playwright"; npm run test:e2e` terminou com saída 0: **44 execuções aprovadas em aproximadamente 1,3 minuto**. Inclui a verificação final de espaçamentos 16/24px, hover independente da outra esteira, recálculo ao redimensionar, sentidos e velocidades, cruzamento da emenda, pausa persistente, simulação de aba oculta, pausa fora da viewport, galeria estática com redução de movimento, foco/Escape e gestos de toque. Os 24 casos anteriores passaram novamente sem alterações nas outras seções.
+
+As capturas finais de 390px e 1440px foram inspecionadas após o último ajuste. `git diff --check` e `npm run format:check` aprovados. HTTP 200 confirmado no servidor de desenvolvimento, mantido em http://127.0.0.1:5173/#trabalhos. Registro local na mesma branch feat/cinematic-landing; sem criação de remoto ou publicação.

@@ -23,3 +23,17 @@ Object.defineProperty(HTMLDialogElement.prototype, 'close', {
     this.removeAttribute('open');
   },
 });
+vi.stubGlobal(
+  'ResizeObserver',
+  class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  },
+);
+vi.stubGlobal('matchMedia', (query: string) => ({
+  matches: false,
+  media: query,
+  addEventListener() {},
+  removeEventListener() {},
+}));

@@ -1,6 +1,6 @@
 ﻿# Mário Gomes — Beyond the Frame
 
-Landing page editorial cinematográfica de Mário Gomes, editor de vídeo, em React/TypeScript/Vite. Implementação local autorizada pela especificação em docs/DESIGN_SYSTEM.md. Mídia, projetos, fotografia e WhatsApp reais ainda precisam ser fornecidos; a interface identifica essas pendências sem inventar dados.
+Landing page editorial cinematográfica de Mário Gomes, editor de vídeo, em React/TypeScript/Vite. Implementação local autorizada pela especificação em docs/DESIGN_SYSTEM.md. O portfólio apresenta duas esteiras com 12 imagens ilustrativas autorizadas; vídeos, projetos, fotografia e WhatsApp reais ainda precisam ser fornecidos; a interface identifica essas pendências sem inventar dados.
 
 ## Ambiente
 
@@ -49,7 +49,7 @@ A configuração E2E inicia e encerra seu próprio servidor de preview na porta 
 
 ## Arquitetura e limites
 
-Consulte [arquitetura](docs/ARCHITECTURE.md), [especificação visual](docs/DESIGN_SYSTEM.md), [roadmap](docs/ROADMAP.md) e [validação](docs/VALIDATION.md). A base não tem backend, banco, autenticação, painel, rotas, animações ou bibliotecas de componentes.
+Consulte [arquitetura](docs/ARCHITECTURE.md), [especificação visual](docs/DESIGN_SYSTEM.md), [roadmap](docs/ROADMAP.md) e [validação](docs/VALIDATION.md). A base não tem backend, banco, autenticação, painel, rotas ou bibliotecas de componentes. Os efeitos visuais usam CSS e APIs nativas do navegador.
 
 ## Git e GitHub
 
@@ -59,4 +59,4 @@ Use branches curtas (`feat/...`, `fix/...`, `chore/...`), commits em inglês e P
 
 Após definir conta, visibilidade e autorizar publicação, criar o remoto chamado `mario-gomes-portfolio` e enviar o histórico local. O workflow [.github/workflows/ci.yml](.github/workflows/ci.yml) fica pronto para PRs e pushes na main, sem deploy e com permissão somente de leitura. Não versionar credenciais, .env, node_modules, dist ou relatórios. Variáveis VITE_* são públicas no bundle: não devem conter segredos.
 
-A licença do código e as permissões de imagens, vídeos, fontes e marcas permanecem pendentes. Nenhuma licença ou autoria de conteúdo externo foi presumida.
+A licença do código e as permissões da mídia definitiva e das marcas permanecem pendentes. As fontes locais acompanham licenças OFL; as imagens ilustrativas do portfólio têm origem e licença registradas em docs/DESIGN_SYSTEM.md. Nenhuma licença ou autoria de conteúdo externo foi presumida.

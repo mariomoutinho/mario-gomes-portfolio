@@ -2,7 +2,7 @@
 
 ## Evolução: landing page local
 
-A especificação recebida em 25/11/2026 autoriza a interface comercial local. App compõe sete seções narrativas; dados em src/data, componentes em layout/media/motion/ui e seções interativas em src/sections. Não há novas dependências. A documentação abaixo registra a fundação original; o contrato visual vigente está em DESIGN_SYSTEM.md.
+A especificação recebida em 25/11/2026 autoriza a interface comercial local. App compõe sete seções narrativas; dados em src/data, componentes em layout/media/motion/ui e seções interativas em src/sections. O Ato 03 usa PortfolioSection e CinematicPortfolioMarquee, com dados em src/data/portfolio.ts, transform via Web Animations API e modal único em components/media/portfolio-video-player.tsx. A galeria estática anterior foi removida por ter sido substituída. Não há novas dependências. A documentação abaixo registra a fundação original; o contrato visual vigente está em DESIGN_SYSTEM.md.
 
 ## Escopo original da fundação
 

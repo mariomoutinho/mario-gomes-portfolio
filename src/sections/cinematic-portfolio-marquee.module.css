@@ -1,0 +1,200 @@
+﻿.tracks {
+  display: grid;
+  gap: 16px;
+  background: radial-gradient(ellipse at center, rgb(49 93 205 / 8%), transparent 70%);
+}
+.trackBlock {
+  min-width: 0;
+}
+
+.viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 16px,
+    black calc(100% - 16px),
+    transparent
+  );
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+}
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+.belt {
+  display: flex;
+  width: max-content;
+}
+.sequence {
+  display: flex;
+  gap: 12px;
+  padding-right: 12px;
+  flex-shrink: 0;
+}
+.cardSlot {
+  display: block;
+  width: 144px;
+  flex-shrink: 0;
+}
+[data-orientation='landscape'] .cardSlot {
+  width: 240px;
+}
+.card {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid #ffffff1f;
+  border-radius: 8px;
+  padding: 0;
+  text-align: left;
+  background: #101b33;
+  color: white;
+}
+[data-orientation='landscape'] .card {
+  aspect-ratio: 16 / 9;
+}
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 180ms ease-out;
+}
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 32%, #08090d33 55%, #08090deb);
+  pointer-events: none;
+}
+.cardText {
+  position: absolute;
+  inset: auto 12px 12px;
+  display: grid;
+  gap: 4px;
+  pointer-events: none;
+}
+.category {
+  font: 10px/1.4 var(--font-mono);
+  color: #e1e6f0;
+}
+.cardText strong {
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.provisional {
+  font: 9px/1.6 var(--font-mono);
+  color: #abc8ff;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+.expand {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background: #08090d80;
+}
+.play {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff26;
+  border: 1px solid #ffffff59;
+  backdrop-filter: blur(8px);
+  transition: background 180ms;
+}
+.card:focus-visible {
+  outline-offset: -4px;
+}
+.pause {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  background: transparent;
+  border: 1px solid #ffffff33;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+.reduced {
+  mask-image: none;
+  padding-inline: 20px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover img {
+    transform: scale(1.03);
+  }
+  .card:hover .play {
+    background: #ffffff40;
+  }
+}
+@media (min-width: 768px) {
+  .reduced {
+    padding-inline: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .tracks {
+    gap: 24px;
+  }
+
+  .sequence {
+    gap: 20px;
+    padding-right: 20px;
+  }
+  .cardSlot {
+    width: 200px;
+  }
+  [data-orientation='landscape'] .cardSlot {
+    width: 320px;
+  }
+  .viewport {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 40px,
+      black calc(100% - 40px),
+      transparent
+    );
+  }
+  .reduced {
+    mask-image: none;
+    padding-inline: 64px;
+  }
+  .cardText {
+    inset: auto 16px 16px;
+  }
+  .cardText strong {
+    font-size: 20px;
+  }
+  .category {
+    font-size: 11px;
+  }
+  .play {
+    width: 52px;
+    height: 52px;
+  }
+}
+@media (max-width: 359px) {
+  .reduced {
+    padding-inline: 16px;
+  }
+}

@@ -1,8 +1,8 @@
 ﻿import { useState, type PointerEvent, type CSSProperties } from 'react';
 import { ArrowDown, ArrowUpRight, Pause, Play } from 'lucide-react';
-import { showreel, portrait, portfolio } from '../data/media';
+import { showreel, portrait } from '../data/media';
 import { ResponsiveVideo } from '../components/media/responsive-video';
-import { PortfolioGallery } from '../sections/portfolio-gallery';
+import { PortfolioSection } from '../sections/portfolio-section';
 import { Header } from '../components/layout/header';
 import {
   CinematicAmbientLight,
@@ -115,32 +115,7 @@ export function App() {
             </div>
           </div>
         </section>
-        <section id="trabalhos" className={styles.section}>
-          <p className={styles.eyebrow}>02 / PORTFÓLIO — TRABALHOS SELECIONADOS</p>
-          <div className={styles.sectionHeading}>
-            <CinematicReveal>
-              <h2>Em movimento.</h2>
-            </CinematicReveal>
-            <span className={styles.aside}>CADA CORTE, UMA ESCOLHA.</span>
-          </div>
-          <CinematicReveal>
-            {portfolio.length ? (
-              <PortfolioGallery />
-            ) : (
-              <div className={styles.portfolioEmpty}>
-                <span aria-hidden="true">[ MG / 01 ]</span>
-                <div>
-                  <h3>As histórias chegam aqui.</h3>
-                  <p>
-                    Os trabalhos selecionados serão apresentados com seus vídeos, nomes e créditos
-                    reais.
-                  </p>
-                </div>
-                <span>PORTFÓLIO AGUARDANDO MATERIAIS</span>
-              </div>
-            )}
-          </CinematicReveal>
-        </section>
+        <PortfolioSection globalPaused={paused} />
         <section id="sobre" className={`${styles.section} ${styles.light}`}>
           <div className={styles.about}>
             <CinematicReveal>
