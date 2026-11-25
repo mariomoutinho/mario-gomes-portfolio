@@ -1,6 +1,9 @@
-﻿import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 import { afterEach, vi } from 'vitest';
+// O jsdom não implementa reprodução; a mídia real é validada no Chromium E2E.
+HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+HTMLMediaElement.prototype.pause = vi.fn();
 
 vi.stubGlobal(
   'IntersectionObserver',

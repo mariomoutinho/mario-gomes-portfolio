@@ -1,4 +1,4 @@
-﻿import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 async function openPortfolio(page: Page) {
   await page.goto('/');
@@ -58,7 +58,7 @@ for (const width of [320, 390, 430, 768, 1440]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );
-    expect(await page.locator('video').count()).toBe(0);
+    expect(await page.locator('#trabalhos video').count()).toBe(0);
     await page
       .locator('#trabalhos')
       .screenshot({ path: testInfo.outputPath(`marquee-${width}.png`) });
@@ -132,7 +132,7 @@ test('ampliação acessível, Escape e restauração do foco sem players duplica
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).not.toBeVisible();
   await expect(card).toBeFocused();
-  expect(await page.locator('video').count()).toBe(0);
+  expect(await page.locator('#trabalhos video').count()).toBe(0);
   await expect(page.locator('#verticalPortfolioTrack > div > div')).toHaveCount(1);
   await expect(page.locator('#horizontalPortfolioTrack > div > div')).toHaveCount(1);
 });

@@ -1,6 +1,6 @@
-﻿# Mário Gomes — Beyond the Frame
+# Mário Gomes — Beyond the Frame
 
-Landing page editorial cinematográfica de Mário Gomes, editor de vídeo, em React/TypeScript/Vite. Implementação local autorizada pela especificação em docs/DESIGN_SYSTEM.md. O portfólio apresenta duas esteiras com 12 imagens ilustrativas autorizadas; o retrato profissional foi fornecido pelo usuário; vídeos, projetos e WhatsApp reais ainda precisam ser fornecidos; a interface identifica essas pendências sem inventar dados.
+Landing page editorial cinematográfica de Mário Gomes, editor de vídeo, em React/TypeScript/Vite. Implementação local autorizada pela especificação em docs/DESIGN_SYSTEM.md. O portfólio apresenta duas esteiras com 12 imagens ilustrativas autorizadas; o retrato profissional foi fornecido pelo usuário; a abertura apresenta o vídeo de casamento fornecido pelo usuário; projetos das esteiras e WhatsApp reais ainda precisam ser fornecidos; a interface identifica essas pendências sem inventar dados.
 
 ## Ambiente
 
