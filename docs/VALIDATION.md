@@ -280,3 +280,5 @@ npm run check aprovado (formatação, lint, 5 testes Vitest, tipagem e build). P
 ## Publicação das alterações locais revisadas — 25/11/2026
 
 Usuário autorizou expressamente o push após revisar a prévia. O envio reúne correção do g e câmera esmaecida no posicionamento, remoção do controle/informativo abaixo do portfólio, serviços de ponta a ponta com esteira de oito categorias e remoção do accordion Edição de vídeo. Preservadas as verificações registradas em cada etapa; npm run format:check e git diff --check repetidos e aprovados antes do envio. Mantida a branch feat/cinematic-landing, sem merge na main.
+
+Push confirmado: commit 1911015 enviado para origin/feat/cinematic-landing. Workflow https://github.com/mariomoutinho/mario-gomes-portfolio/actions/runs/45718038232 aprovado, build e deploy concluídos. Homologação pública em 390px e 1440px: HTTP 200, oito categorias, câmera decorativa presente, nenhum botão de movimento no portfólio, nenhum accordion de serviço, fundo de serviços com largura da viewport, sem overflow horizontal ou erros de página. Capturas .cache/services-published-{390,1440}.png. Registro posterior enviado como documentação com [skip ci].
