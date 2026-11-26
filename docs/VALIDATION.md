@@ -326,3 +326,5 @@ Resultado final: npm run check aprovado (formatação, lint, cinco testes Vitest
 ## Envio autorizado das alterações revisadas — 26/11/2026
 
 Usuário autorizou expressamente o push da prévia: inclui reformulação da seção Processo e remoção das legendas de orientação no Portfólio. Mantidos os resultados de check e E2E registrados acima, sem alterações adicionais de implementação. Envio na branch feat/cinematic-landing, sem merge na main.
+
+Publicação confirmada: commit 3344eeb enviado para origin/feat/cinematic-landing. Workflow https://github.com/mariomoutinho/mario-gomes-portfolio/actions/runs/45820390837 aprovado. Homologação no site público em 390px e 1440px confirmou novo cabeçalho, aviso permanente sobre captação pelo cliente, cinco seletores, seleção de Entrega com descrição atualizada, ausência das legendas Horizontal/Vertical no Portfólio e ausência de overflow horizontal. Registro posterior enviado com [skip ci].
