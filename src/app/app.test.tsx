@@ -11,7 +11,7 @@ describe('Landing page', () => {
   });
   it('atualiza o contexto da timeline', () => {
     render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: /03\s*Revisão/ }));
-    expect(screen.getByRole('heading', { name: 'Revisão' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Revisão' }));
+    expect(screen.getByRole('heading', { name: 'Refinamos o resultado.' })).toBeInTheDocument();
   });
 });

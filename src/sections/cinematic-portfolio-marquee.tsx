@@ -236,7 +236,6 @@ function MarqueeTrack({
     >
       <header className={styles.trackHeading}>
         <h3 id={`${category.id}-title`}>{category.title}</h3>
-        <span>{category.formats}</span>
       </header>
       <div
         ref={viewport}

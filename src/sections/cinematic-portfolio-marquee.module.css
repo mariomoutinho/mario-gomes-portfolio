@@ -229,11 +229,6 @@
   letter-spacing: -0.04em;
   line-height: 1.25;
 }
-.trackHeading > span {
-  font: 10px/1.5 var(--font-mono);
-  color: #a7b2c7;
-  flex-shrink: 0;
-}
 .trackBlock .cardSlot {
   width: calc(var(--card-height) * 9 / 16);
 }

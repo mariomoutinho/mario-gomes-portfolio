@@ -306,3 +306,23 @@ Reprodução local confirmou movimento nas cinco categorias sem preferência por
 Validação: npm run check aprovado (formatação, lint, 5 testes Vitest, tipagem e build). npm run test:e2e -- tests/e2e/services.spec.ts tests/e2e/portfolio.spec.ts aprovado: 32 execuções passaram em 52,7 segundos; dois casos exclusivos de toque foram ignorados no projeto desktop e aprovados no projeto mobile. Inclui movimento das cinco categorias, retomada após gesto, continuidade após toque nos serviços, foco de teclado, movimento reduzido e pausa em aba oculta.
 
 Publicação confirmada: commit a8279f8 enviado; workflow https://github.com/mariomoutinho/mario-gomes-portfolio/actions/runs/45743982939 aprovado. Conferência no endereço público com Pixel 7 emulado e movimento habilitado: todas as cinco categorias avançaram, e Serviços continuou com playState running após toque mesmo mantendo :hover e foco. Usuário informou Xiaomi Note 14 Pro; navegador e preferência de acessibilidade ainda não informados, sem validação física nesse modelo. Registro posterior enviado com [skip ci].
+
+## Prévia local: retirada das indicações de orientação no Portfólio — 26/11/2026
+
+Removidos os textos Horizontal e Vertical dos cabeçalhos das cinco esteiras da seção Portfólio, junto com o CSS exclusivo dessas legendas. Mantidos os nomes das categorias e as proporções das mídias. Escopo solicitado restrito ao Portfólio. Usuário pediu revisão antes do push: alterações somente locais, sem commit, push ou deploy.
+
+Validação local: npm run check aprovado (formatação, lint, cinco testes Vitest, tipagem e build). npm run test:e2e -- tests/e2e/portfolio.spec.ts --grep "full-bleed" aprovado: dez execuções em 30 segundos, desktop e mobile, larguras de 320, 390, 430, 768 e 1440px. Conferidas as cinco categorias, proporções das mídias, carregamento das imagens e ausência de overflow horizontal. Sem teste em aparelho físico. Sem push ou deploy, aguardando autorização.
+
+## Prévia local: Processo de edição — 26/11/2026
+
+Seção 05 implementada conforme texto e captura enviados: divisão Você grava / Eu edito / Você recebe; aviso permanente de que captação é responsabilidade do cliente e não está inclusa; cinco etapas selecionáveis (Briefing, Envio, Edição, Revisão e Entrega), responsabilidades e playhead; checklist de quatro materiais e CTA contextual. Nenhuma condição comercial ou contato inventado. WhatsApp segue sem número: CTA preparado para a configuração existente, atualmente desabilitado e identificado como contato em breve. Sem upload ou funcionalidades de edição audiovisual.
+
+Testes atualizados para os novos títulos e cinco etapas. Nova suíte verifica seleção individual por teclado, descrições, responsabilidades, posições conceituais do playhead, transição de 450ms e ausência de autoplay, movimento reduzido, checklist, CTA pendente, duas linhas de seletores com pelo menos 44px de altura e ausência de overflow em 320, 390, 430 e 1440px. Primeira execução revelou overflow de 4px em 320px causado pela camada radial decorativa; corrigido o inset horizontal. Teste de integração antigo também foi ajustado para distinguir rótulo do botão e novo título contextual.
+
+Capturas locais de todas as cinco etapas em .cache/process-{390,1440}-*.png. Inspeção visual de Briefing no mobile e Edição no desktop: títulos, representação das responsabilidades, aviso de escopo, ondas, seleção e checklist legíveis; mídias e demais seções preservadas. Sem teste em aparelho físico. Preservadas alterações locais anteriores do Portfólio; sem commit, push ou deploy, aguardando autorização conforme solicitação direta anterior.
+
+Resultado final: npm run check aprovado (formatação, lint, cinco testes Vitest, tipagem e build). npm run test:e2e -- tests/e2e/process.spec.ts tests/e2e/foundation.spec.ts aprovado: 36 execuções em 1,3 minuto em desktop e mobile, incluindo 320px após correção. npm run format:check e git diff --check repetidos ao concluir. Implementação pronta para revisão local; nenhuma publicação realizada.
+
+## Envio autorizado das alterações revisadas — 26/11/2026
+
+Usuário autorizou expressamente o push da prévia: inclui reformulação da seção Processo e remoção das legendas de orientação no Portfólio. Mantidos os resultados de check e E2E registrados acima, sem alterações adicionais de implementação. Envio na branch feat/cinematic-landing, sem merge na main.

@@ -1,0 +1,190 @@
+﻿.content {
+  color: var(--color-white);
+}
+.eyebrow {
+  font: 10px/1.6 var(--font-mono);
+  color: var(--color-blue-glow);
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+}
+.heading h2 {
+  font-size: clamp(36px, 5.5vw, 72px);
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+}
+.heading h2 span {
+  color: var(--color-blue-glow);
+}
+.introduction {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--color-text-muted-light);
+  max-width: 58ch;
+  margin-top: 20px;
+}
+.handoff {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  list-style: none;
+  padding: 20px 16px;
+  margin: 32px 0 20px;
+  border: 1px solid rgb(171 200 255 / 10%);
+  border-radius: 8px;
+  background: var(--color-dark);
+}
+.handoff li {
+  position: relative;
+  min-width: 0;
+}
+.handoffTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-blue-light);
+  margin-bottom: 16px;
+}
+.handoffTop > span {
+  font: 9px var(--font-mono);
+}
+.handoff strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.handoff p {
+  margin-top: 6px;
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--color-text-muted-light);
+}
+.connector {
+  position: absolute;
+  right: -15px;
+  top: 4px;
+  color: rgb(171 200 255 / 38%);
+}
+.scope {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 84ch;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--color-text-muted-light);
+}
+.scope svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-blue-light);
+}
+.materials {
+  background: rgb(255 255 255 / 6%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgb(171 200 255 / 16%);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 32px;
+}
+.materials h3,
+.contact h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.materials > p {
+  color: var(--color-text-muted-light);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 8px;
+  max-width: 76ch;
+}
+.materials ul {
+  display: grid;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin-top: 24px;
+}
+.materials li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.materials li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-blue-glow);
+}
+.materials strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+.materials li span {
+  display: block;
+  color: var(--color-text-muted-light);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 2px;
+}
+.contact {
+  margin-top: 32px;
+}
+.contactButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 12px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 5px;
+  background: #eff3fa;
+  color: var(--color-deep-blue);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+.contactButton svg {
+  flex-shrink: 0;
+}
+.contactButton:disabled {
+  cursor: not-allowed;
+}
+.contact > p {
+  color: var(--color-text-muted-light);
+  font-size: 11px;
+  margin-top: 10px;
+}
+@media (min-width: 768px) {
+  .handoff {
+    padding: 28px;
+    gap: 40px;
+    max-width: 760px;
+  }
+  .handoff strong {
+    font-size: 16px;
+  }
+  .handoff p {
+    font-size: 12px;
+  }
+  .connector {
+    right: -24px;
+  }
+  .materials {
+    padding: 28px;
+  }
+  .materials ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .contactButton {
+    width: auto;
+    padding-inline: 24px;
+  }
+}

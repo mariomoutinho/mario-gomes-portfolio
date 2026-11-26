@@ -10,7 +10,7 @@ import {
   CinematicLightFlow,
   CinematicReveal,
 } from '../components/motion/cinematic-effects';
-import { ProductionTimeline } from '../sections/production-timeline';
+import { EditingProcess } from '../sections/editing-process';
 
 import { ServiceFormatsMarquee } from '../sections/service-formats-marquee';
 import { RippleLink } from '../components/ui/ripple-link';
@@ -178,16 +178,12 @@ export function App() {
             <ServiceFormatsMarquee />
           </div>
         </section>
-        <section id="processo" className={`${styles.section} ${styles.process}`}>
-          <p className={styles.eyebrow}>05 / O PROCESSO</p>
-          <CinematicReveal>
-            <h2>
-              Do material bruto
-              <br />
-              ao resultado final.
-            </h2>
-          </CinematicReveal>
-          <ProductionTimeline />
+        <section
+          id="processo"
+          className={`${styles.section} ${styles.process}`}
+          aria-labelledby="process-title"
+        >
+          <EditingProcess />
         </section>
         <section id="contato" className={styles.contact}>
           <CinematicLightFlow />

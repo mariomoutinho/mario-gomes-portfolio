@@ -1891,3 +1891,11 @@ Atualização exclusiva da iluminação do Ato 03, posterior à especificação 
 ## Publicação pública — atualização de 25/11/2026
 
 Repositório público e GitHub Pages autorizados expressamente pelo usuário. URL canônica e og:url: https://mariomoutinho.github.io/mario-gomes-portfolio/. Meta robots alterada para index,follow. As limitações de conteúdo continuam visíveis: imagens do portfólio são ilustrativas, vídeos reais e WhatsApp seguem pendentes. Nenhuma licença geral de código ou de mídia foi inventada pela publicação. A configuração anterior de noindex era relativa às etapas ainda não autorizadas.
+
+## Processo de edição — refinamento de 26/11/2026
+
+Seção 05 reformulada conforme a especificação anexada e a captura do protótipo fornecidas pelo usuário. Cabeçalho “Você grava. Eu transformo.”, representação estática de três responsabilidades (Video, Clapperboard e CirclePlay da Lucide existente), informação permanente sobre captação pelo cliente, cinco etapas interativas e checklist de materiais. Referência visual fornecida como captura, sem URL ou chave de arquivo Figma para consultar camadas; implementação baseada no conteúdo e imagem recebidos.
+
+Dados em src/data/editing-process.ts; apresentação em EditingProcess e ProductionTimeline. Briefing, Envio, Edição, Revisão e Entrega posicionam o playhead em 5%, 25%, 50%, 75% e 96%, sem avanço automático. Transição de 450ms respeita movimento reduzido. V2, V1 e A1 ilustram recebimento de arquivos, edição (maior segmento), revisão e exportação; régua e ondas são decorativas e não expressam duração real. Seletores de 44px mínimos em duas linhas no mobile; descrição com aria-live e responsabilidades por etapa. Desktop apresenta timeline e descrição lado a lado. Iluminação radial estática e checklist de vidro, sem animações contínuas novas ou dependências.
+
+CTA utiliza o número configurável já existente e mensagem específica de orçamento para material gravado. Como siteContent.whatsapp continua vazio, botão permanece desabilitado com aviso de contato em breve, sem dados comerciais inventados. Mantida a instrução direta de aguardar permissão para push; alterações somente locais, inclusive a remoção anterior das legendas de orientação no Portfólio.

@@ -30,8 +30,10 @@ test('timeline funciona por teclado', async ({ page }) => {
   await expect(page.locator('#inicio button').filter({ hasText: /movimento/ })).toHaveCount(0);
   const playhead = page.locator('[class*="playhead"]');
   const original = await playhead.evaluate((node) => node.getBoundingClientRect().x);
-  await page.getByRole('button', { name: /03\s*Revisão/ }).click();
-  await expect(page.getByRole('heading', { name: 'Revisão', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Revisão' }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Refinamos o resultado.', exact: true }),
+  ).toBeVisible();
   await expect
     .poll(async () => playhead.evaluate((node) => node.getBoundingClientRect().x))
     .toBeGreaterThan(original);
