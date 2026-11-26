@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { serviceFormats } from '../data/site-content';
 import styles from './service-formats-marquee.module.css';
 
@@ -40,6 +40,7 @@ export function ServiceFormatsMarquee() {
               <li key={format.title} className={styles.card}>
                 <span className={styles.accent} aria-hidden="true" />
                 <h3>{format.title}</h3>
+                <span className={styles.format}>{format.formats}</span>
                 <p>{format.description}</p>
               </li>
             ))}

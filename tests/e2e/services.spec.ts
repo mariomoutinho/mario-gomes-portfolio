@@ -11,7 +11,7 @@ for (const width of [320, 390, 1440]) {
     const background = (await section.locator(':scope > div').first().boundingBox())!;
     expect(background.x).toBeCloseTo(0, 0);
     expect(background.width).toBeCloseTo(width, 0);
-    await expect(formats.locator('ul').first().locator('li')).toHaveCount(8);
+    await expect(formats.locator('ul').first().locator('li')).toHaveCount(5);
     await expect(formats.locator('ul').last()).toHaveAttribute('inert', '');
     await expect(formats.locator('ul').last()).not.toBeVisible();
     await formats.focus();

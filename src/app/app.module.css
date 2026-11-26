@@ -557,3 +557,15 @@
     margin-top: 64px;
   }
 }
+
+.aboutHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  list-style: none;
+  padding: 24px 0 0;
+  margin-top: 28px;
+  border-top: 1px solid rgb(21 25 34 / 14%);
+  color: var(--color-text-muted-dark);
+  font-size: 13px;
+}

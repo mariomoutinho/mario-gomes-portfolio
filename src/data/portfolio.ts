@@ -1,7 +1,10 @@
-﻿export interface PortfolioWork {
+import type { PortfolioCategoryId } from './portfolio-categories';
+export interface PortfolioWork {
   id: string;
   title: string;
   category: string;
+  categoryId: PortfolioCategoryId;
+  rotateToLandscape?: boolean;
   orientation: 'portrait' | 'landscape';
   posterSrc: string;
   posterAlt: string;
@@ -108,12 +111,27 @@ const examples = [
     '1485846234645-a62644f84728',
   ],
 ] as const;
+const referenceCategories: Record<string, PortfolioCategoryId> = {
+  'human-narrative': 'wedding-film',
+  'commercial-story': 'wedding-film',
+  'artistic-production': 'xv-anos',
+  'cinematic-landscape': 'xv-anos',
+  'urban-narrative': 'after-movie',
+  'creative-production': 'after-movie',
+  'documentary-interview': 'after-movie',
+  'abstract-motion': 'cultural',
+  'documentary-portrait': 'cultural',
+  'institutional-space': 'corporativo-institucional',
+  'digital-content': 'corporativo-institucional',
+  'product-story': 'corporativo-institucional',
+};
 // Imagens de referência: estes títulos e categorias NÃO descrevem trabalhos de Mário Gomes.
 export const portfolioWorks: PortfolioWork[] = examples.map(
   ([id, title, category, orientation, posterAlt, photo]) => ({
     id,
     title,
     category,
+    categoryId: referenceCategories[id]!,
     orientation,
     posterAlt,
     posterSrc: `${import.meta.env.BASE_URL}media/portfolio/${id}.webp`,
@@ -126,3 +144,22 @@ export const portfolioWorks: PortfolioWork[] = examples.map(
     },
   }),
 );
+
+// Referência horizontal adicional para a prévia Cultural; continua sendo ilustrativa.
+portfolioWorks.push({
+  ...portfolioWorks.find((work) => work.id === 'artistic-production')!,
+  id: 'cultural-reference',
+  categoryId: 'cultural',
+});
+portfolioWorks.push({
+  id: 'wedding-film-casamento',
+  title: 'Casamento',
+  category: 'Wedding Film',
+  categoryId: 'wedding-film',
+  orientation: 'landscape',
+  posterSrc: `${import.meta.env.BASE_URL}media/posters/casamento.webp`,
+  posterAlt: 'Filme de casamento apresentado na horizontal.',
+  videoSrc: `${import.meta.env.BASE_URL}media/videos/casamento.mp4`,
+  isPlaceholder: false,
+  rotateToLandscape: true,
+});

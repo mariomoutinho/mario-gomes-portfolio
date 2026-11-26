@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { Expand, Play } from 'lucide-react';
 import type { PortfolioWork } from '../data/portfolio';
+import { portfolioCategories } from '../data/portfolio-categories';
 import styles from './cinematic-portfolio-marquee.module.css';
 
 function PortfolioMediaCard({
@@ -29,6 +30,7 @@ function PortfolioMediaCard({
     >
       <img
         src={work.posterSrc}
+        className={work.rotateToLandscape ? styles.rotatedPoster : undefined}
         alt={duplicate ? '' : work.posterAlt}
         width={work.orientation === 'portrait' ? 600 : 800}
         height={work.orientation === 'portrait' ? 1066 : 450}
@@ -46,7 +48,6 @@ function PortfolioMediaCard({
         </span>
       )}
       <span className={styles.cardText}>
-        <span className={styles.category}>{work.category}</span>
         <strong>{work.title}</strong>
         {work.isPlaceholder && <span className={styles.provisional}>ILUSTRATIVO</span>}
       </span>
@@ -56,13 +57,15 @@ function PortfolioMediaCard({
 
 function MarqueeTrack({
   works,
-  orientation,
+  category,
+  reverse,
   running,
   reduced,
   onSelect,
 }: {
   works: PortfolioWork[];
-  orientation: 'portrait' | 'landscape';
+  category: (typeof portfolioCategories)[number];
+  reverse: boolean;
   running: boolean;
   reduced: boolean;
   onSelect: (work: PortfolioWork) => void;
@@ -82,8 +85,16 @@ function MarqueeTrack({
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [repetitions, setRepetitions] = useState(1);
-  const speed = orientation === 'portrait' ? 24 : 30;
-  const label = orientation === 'portrait' ? 'verticais' : 'horizontais';
+  const speed = 30;
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) =>
+      setVisible(Boolean(entry?.isIntersecting)),
+    );
+    if (viewport.current) observer.observe(viewport.current);
+    return () => observer.disconnect();
+  }, []);
+
   const canRun = useRef(false);
   const resumeAction = useRef<() => void>(() => {});
 
@@ -113,12 +124,11 @@ function MarqueeTrack({
         duration,
         iterations: Infinity,
         easing: 'linear',
-        direction: orientation === 'portrait' ? 'reverse' : 'normal',
+        direction: reverse ? 'reverse' : 'normal',
       },
     );
     player.pause();
-    player.currentTime =
-      orientation === 'portrait' ? duration - (phase / speed) * 1000 : (phase / speed) * 1000;
+    player.currentTime = reverse ? duration - (phase / speed) * 1000 : (phase / speed) * 1000;
     view.scrollLeft = width;
     animation.current = player;
     if (canRun.current) player.play();
@@ -143,7 +153,11 @@ function MarqueeTrack({
       const first = sequence.querySelector<HTMLElement>('button');
       if (!first) return;
       const gap = parseFloat(getComputedStyle(sequence).columnGap) || 0;
-      const sequenceWidth = (first.offsetWidth + gap) * works.length;
+      const originals = [...sequence.querySelectorAll<HTMLElement>(':scope > span')].slice(
+        0,
+        works.length,
+      );
+      const sequenceWidth = originals.reduce((width, card) => width + card.offsetWidth + gap, 0);
       const needed = Math.max(1, Math.ceil(view.clientWidth / sequenceWidth));
       if (needed !== repetitions) {
         setRepetitions(needed);
@@ -172,12 +186,12 @@ function MarqueeTrack({
   }, [reduced, repetitions, works.length]);
 
   useEffect(() => {
-    canRun.current = running && !manual && !hovered && !focused && !reduced;
+    canRun.current = running && visible && !manual && !hovered && !focused && !reduced;
     if (animation.current) {
       if (canRun.current) animation.current.play();
       else animation.current.pause();
     } else if (!manual && initialized.current && !reduced) resumeAction.current();
-  }, [running, manual, hovered, focused, reduced]);
+  }, [running, visible, manual, hovered, focused, reduced]);
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const interact = () => {
@@ -208,19 +222,27 @@ function MarqueeTrack({
   const navigate = (direction: number) => {
     interact();
     viewport.current?.scrollBy({
-      left: direction * (orientation === 'portrait' ? 180 : 280),
+      left: direction * 280,
       behavior: 'instant',
     });
     finish();
   };
   if (!works.length) return null;
   return (
-    <div className={styles.trackBlock} data-orientation={orientation}>
+    <section
+      className={styles.trackBlock}
+      data-category={category.id}
+      aria-labelledby={`${category.id}-title`}
+    >
+      <header className={styles.trackHeading}>
+        <h3 id={`${category.id}-title`}>{category.title}</h3>
+        <span>{category.formats}</span>
+      </header>
       <div
         ref={viewport}
-        id={orientation === 'portrait' ? 'verticalPortfolioTrack' : 'horizontalPortfolioTrack'}
+        id={`portfolio-${category.id}`}
         className={`${styles.viewport} ${reduced ? styles.reduced : ''}`}
-        aria-label={`Galeria de formatos ${label}`}
+        aria-label={`Galeria de ${category.title}`}
         role="group"
         tabIndex={0}
         aria-description="Use as setas esquerda e direita para explorar a galeria. Selecione uma imagem para ampliar."
@@ -296,6 +318,7 @@ function MarqueeTrack({
                   <span
                     key={`${repeat}-${work.id}`}
                     className={styles.cardSlot}
+                    data-orientation={work.orientation}
                     aria-hidden={repeat > 0 ? true : undefined}
                   >
                     <PortfolioMediaCard
@@ -310,7 +333,7 @@ function MarqueeTrack({
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 export function CinematicPortfolioMarquee({
@@ -326,20 +349,19 @@ export function CinematicPortfolioMarquee({
 }) {
   return (
     <div className={styles.tracks}>
-      <MarqueeTrack
-        works={works.filter((work) => work.orientation === 'portrait')}
-        orientation="portrait"
-        running={running}
-        reduced={reduced}
-        onSelect={onSelect}
-      />
-      <MarqueeTrack
-        works={works.filter((work) => work.orientation === 'landscape')}
-        orientation="landscape"
-        running={running}
-        reduced={reduced}
-        onSelect={onSelect}
-      />
+      {portfolioCategories.map((category, index) => (
+        <MarqueeTrack
+          key={category.id}
+          category={category}
+          reverse={index % 2 === 1}
+          works={works
+            .filter((work) => work.categoryId === category.id)
+            .sort((a, b) => Number(a.isPlaceholder) - Number(b.isPlaceholder))}
+          running={running}
+          reduced={reduced}
+          onSelect={onSelect}
+        />
+      ))}
     </div>
   );
 }

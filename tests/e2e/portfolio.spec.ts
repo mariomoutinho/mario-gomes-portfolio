@@ -25,18 +25,34 @@ for (const width of [320, 390, 430, 768, 1440]) {
     await openPortfolio(page);
     await expect(page.getByRole('heading', { name: 'Histórias em movimento.' })).toBeVisible();
     expect(await page.locator('#trabalhos button[class*="card"]').count()).toBeGreaterThanOrEqual(
-      12,
+      14,
     );
     await expect(page.locator('#trabalhos').getByRole('button', { name: /^Ampliar/ })).toHaveCount(
-      12,
+      13,
     );
-    const portrait = await page.locator('#verticalPortfolioTrack button').first().boundingBox();
-    const landscape = await page.locator('#horizontalPortfolioTrack button').first().boundingBox();
-    expect(portrait!.width).toBe(width >= 1024 ? 200 : 144);
-    expect(portrait!.width / portrait!.height).toBeCloseTo(9 / 16, 2);
-    expect(landscape!.y - (portrait!.y + portrait!.height)).toBeCloseTo(width >= 1024 ? 24 : 16, 0);
-    expect(landscape!.width).toBe(width >= 1024 ? 320 : 240);
-    expect(landscape!.width / landscape!.height).toBeCloseTo(16 / 9, 2);
+    await expect(page.locator('#trabalhos [data-category]')).toHaveCount(5);
+    await expect(
+      page.locator('#trabalhos').getByRole('button', { name: 'Reproduzir Casamento', exact: true }),
+    ).toHaveCount(1);
+    for (const id of ['wedding-film', 'xv-anos']) {
+      await expect(page.locator(`#portfolio-${id} [data-orientation='portrait']`)).toHaveCount(0);
+    }
+    for (const id of ['after-movie', 'cultural', 'corporativo-institucional']) {
+      expect(
+        await page.locator(`#portfolio-${id} [data-orientation='portrait']`).count(),
+      ).toBeGreaterThan(0);
+      expect(
+        await page.locator(`#portfolio-${id} [data-orientation='landscape']`).count(),
+      ).toBeGreaterThan(0);
+    }
+    const landscape = (await page.locator('#portfolio-wedding-film button').first().boundingBox())!;
+    expect(landscape.width / landscape.height).toBeCloseTo(16 / 9, 2);
+    const portrait = (await page
+      .locator('#portfolio-after-movie [data-orientation="portrait"] button')
+      .first()
+      .boundingBox())!;
+    expect(portrait.width / portrait.height).toBeCloseTo(9 / 16, 2);
+    expect(portrait.height).toBe(width >= 1024 ? 240 : 180);
     await page.locator('#trabalhos img').evaluateAll((images) =>
       images.forEach((image) => {
         (image as HTMLImageElement).loading = 'eager';
@@ -66,14 +82,18 @@ for (const width of [320, 390, 430, 768, 1440]) {
 }
 
 test('velocidade, sentidos opostos e continuidade', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1400 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await openPortfolio(page);
-  const top = 'verticalPortfolioTrack';
-  const bottom = 'horizontalPortfolioTrack';
+  await page
+    .locator('#portfolio-wedding-film')
+    .evaluate((node) => window.scrollTo(0, node.getBoundingClientRect().top + scrollY - 120));
+  const top = 'portfolio-wedding-film';
+  const bottom = 'portfolio-xv-anos';
   await expect.poll(async () => (await animationState(page, top)).state).toBe('running');
   for (const [id, speed, direction] of [
-    [top, 24, 'reverse'],
-    [bottom, 30, 'normal'],
+    [top, 30, 'normal'],
+    [bottom, 30, 'reverse'],
   ] as const) {
     const before = await animationState(page, id);
     expect(before.direction).toBe(direction);
@@ -106,7 +126,7 @@ test('velocidade, sentidos opostos e continuidade', async ({ page }) => {
       const state = await animationState(page, top);
       return state.width / (state.duration / 1000);
     })
-    .toBeCloseTo(24, 2);
+    .toBeCloseTo(30, 2);
   await expect(page.getByRole('button', { name: /^(Pausar|Retomar) movimento$/ })).toHaveCount(0);
   await expect(
     page.getByText('Imagens ilustrativas para apresentar a composição visual.'),
@@ -130,15 +150,16 @@ test('ampliação acessível, Escape e restauração do foco sem players duplica
   await expect(page.getByRole('dialog')).not.toBeVisible();
   await expect(card).toBeFocused();
   expect(await page.locator('#trabalhos video').count()).toBe(0);
-  await expect(page.locator('#verticalPortfolioTrack > div > div')).toHaveCount(1);
-  await expect(page.locator('#horizontalPortfolioTrack > div > div')).toHaveCount(1);
+  await expect(page.locator('#portfolio-wedding-film > div > div')).toHaveCount(1);
+  await expect(page.locator('#portfolio-xv-anos > div > div')).toHaveCount(1);
 });
 
 test('exploração manual retoma da posição atual e preserva rolagem vertical', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await openPortfolio(page);
-  const id = 'horizontalPortfolioTrack';
+  const id = 'portfolio-wedding-film';
   const viewport = page.locator(`#${id}`);
+  await viewport.scrollIntoViewIfNeeded();
   await viewport.focus();
   await page.keyboard.press('ArrowRight');
   await expect.poll(async () => (await animationState(page, id)).state).toBe('none');
@@ -167,26 +188,27 @@ test('exploração manual retoma da posição atual e preserva rolagem vertical'
 test('fora da viewport e página oculta interrompem as esteiras', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await openPortfolio(page);
+  await page.locator('#portfolio-wedding-film').scrollIntoViewIfNeeded();
   await expect
-    .poll(async () => (await animationState(page, 'verticalPortfolioTrack')).state)
+    .poll(async () => (await animationState(page, 'portfolio-wedding-film')).state)
     .toBe('running');
   await page.evaluate(() => {
     Object.defineProperty(document, 'hidden', { configurable: true, value: true });
     document.dispatchEvent(new Event('visibilitychange'));
   });
   await expect
-    .poll(async () => (await animationState(page, 'verticalPortfolioTrack')).state)
+    .poll(async () => (await animationState(page, 'portfolio-wedding-film')).state)
     .toBe('paused');
   await page.evaluate(() => {
     Object.defineProperty(document, 'hidden', { configurable: true, value: false });
     document.dispatchEvent(new Event('visibilitychange'));
   });
   await expect
-    .poll(async () => (await animationState(page, 'verticalPortfolioTrack')).state)
+    .poll(async () => (await animationState(page, 'portfolio-wedding-film')).state)
     .toBe('running');
   await page.locator('#contato').scrollIntoViewIfNeeded();
   await expect
-    .poll(async () => (await animationState(page, 'verticalPortfolioTrack')).state)
+    .poll(async () => (await animationState(page, 'portfolio-wedding-film')).state)
     .toBe('paused');
 });
 
@@ -196,7 +218,7 @@ test('gesto de toque horizontal explora e gesto vertical rola a página', async 
   await openPortfolio(page);
   const cdp = await page.context().newCDPSession(page);
   await cdp.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 1 });
-  const track = page.locator('#verticalPortfolioTrack');
+  const track = page.locator('#portfolio-wedding-film');
   await track.scrollIntoViewIfNeeded();
   const box = (await track.boundingBox())!;
   const y = Math.max(120, box.y + 100);
@@ -216,7 +238,7 @@ test('gesto de toque horizontal explora e gesto vertical rola a página', async 
     .toBeGreaterThan(before + 50);
   await expect(page.getByRole('dialog')).not.toBeVisible();
   await expect
-    .poll(async () => (await animationState(page, 'verticalPortfolioTrack')).state, {
+    .poll(async () => (await animationState(page, 'portfolio-wedding-film')).state, {
       timeout: 7000,
     })
     .toBe('running');
@@ -232,4 +254,25 @@ test('gesto de toque horizontal explora e gesto vertical rola a página', async 
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   await expect.poll(async () => page.evaluate(() => scrollY)).toBeGreaterThan(oldY + 30);
   await cdp.detach();
+});
+
+test('Wedding Film abre o casamento real na orientação correta', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await openPortfolio(page);
+  const card = page.getByRole('button', { name: 'Reproduzir Casamento', exact: true });
+  await card.click();
+  const dialog = page.getByRole('dialog', { name: 'Casamento', exact: true });
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Reproduzir vídeo com som', exact: true }).click();
+  await expect
+    .poll(() => dialog.locator('video').evaluate((node: HTMLVideoElement) => node.currentTime))
+    .toBeGreaterThan(0.1);
+  expect(
+    await dialog
+      .locator('video')
+      .evaluate((node) => new DOMMatrixReadOnly(getComputedStyle(node).transform).b),
+  ).toBe(-1);
+  await page.keyboard.press('Escape');
+  await expect(dialog).not.toBeVisible();
+  await expect(card).toBeFocused();
 });

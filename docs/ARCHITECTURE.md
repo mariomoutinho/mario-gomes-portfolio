@@ -65,3 +65,7 @@ Vídeos, posters, formatos, legendas, compressão, lazy loading e orçamentos de
 ## Publicação autorizada — GitHub Pages
 
 O usuário autorizou em 25/11/2026 a mudança do repositório para público e a publicação da implementação atual. A branch main continua com a fundação; não houve merge. `.github/workflows/pages.yml` faz build/checks em push da branch de implementação, publica um artefato dist e implanta pelo GitHub Pages com OIDC. Somente o job de deploy possui pages:write e id-token:write. Actions oficiais fixadas por SHAs verificados na API do GitHub. Vite usa base relativa e os dados de mídia usam import.meta.env.BASE_URL; as fontes públicas referenciadas no CSS são reescritas pelo build. Indexação e URL canônica foram atualizadas após a autorização de publicação.
+
+## Portfólio por categoria e apresentação pessoal
+
+Categorias e formatos autorizados centralizados em src/data/portfolio-categories.ts, compartilhados pelo portfólio e pela esteira de serviços. Cada categoria tem uma única MarqueeTrack com ID próprio; categorias mistas mantêm altura comum nos cards e proporções 9:16/16:9 individuais. O cálculo da sequência soma as larguras reais dos cards, e cada esteira observa a própria visibilidade. PortfolioWork associa a categoria por categoryId e sinaliza rotação quando o arquivo de vídeo contém cenas deitadas. O casamento usa o ResponsiveVideo no modal; as referências ilustrativas mantêm créditos e identificação. A apresentação pessoal fornecida pelo usuário fica em about, no site-content.ts.

@@ -83,3 +83,10 @@
     display: none;
   }
 }
+
+.format {
+  display: block;
+  font: 10px/1.5 var(--font-mono);
+  color: var(--color-blue-glow);
+  margin-top: 10px;
+}

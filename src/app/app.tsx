@@ -14,7 +14,7 @@ import { ProductionTimeline } from '../sections/production-timeline';
 
 import { ServiceFormatsMarquee } from '../sections/service-formats-marquee';
 import { RippleLink } from '../components/ui/ripple-link';
-import { contactUrl } from '../data/site-content';
+import { about, contactUrl } from '../data/site-content';
 import styles from './app.module.css';
 
 export function App() {
@@ -153,14 +153,13 @@ export function App() {
                   cada frame.
                 </h2>
               </CinematicReveal>
-              <p className={styles.aboutCopy}>Mário Gomes. Editor de vídeo.</p>
-              <p className={styles.muted}>
-                Ritmo, intenção e identidade visual conectam as imagens à história que elas podem
-                contar.
-              </p>
-              <span className={styles.editorialNote}>
-                Apresentação profissional completa em preparação.
-              </span>
+              <p className={styles.aboutCopy}>{about.presentation}</p>
+              <p className={styles.muted}>{about.story}</p>
+              <ul className={styles.aboutHighlights}>
+                {about.highlights.map((highlight) => (
+                  <li key={highlight}>{highlight}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>

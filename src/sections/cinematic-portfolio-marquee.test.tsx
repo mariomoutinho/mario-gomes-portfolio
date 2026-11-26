@@ -1,4 +1,4 @@
-﻿import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import { CinematicPortfolioMarquee } from './cinematic-portfolio-marquee';
 import { portfolioWorks } from '../data/portfolio';
@@ -19,7 +19,7 @@ it('aceita um novo trabalho pelo arquivo de dados sem criar players nas esteiras
       onSelect={select}
     />,
   );
-  expect(screen.getAllByRole('button')).toHaveLength(13);
+  expect(screen.getAllByRole('button')).toHaveLength(portfolioWorks.length + 1);
   fireEvent.click(screen.getByRole('button', { name: 'Reproduzir Novo trabalho' }));
   expect(select).toHaveBeenCalledWith(extra);
   expect(document.querySelectorAll('video')).toHaveLength(0);

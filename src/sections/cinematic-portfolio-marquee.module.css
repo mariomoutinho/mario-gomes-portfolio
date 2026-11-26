@@ -209,3 +209,77 @@
     padding-inline: 16px;
   }
 }
+
+.tracks {
+  --card-height: 180px;
+  gap: 48px;
+}
+.trackHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  max-width: 1408px;
+  padding-inline: 20px;
+  margin: 0 auto 24px;
+}
+.trackHeading h3 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.25;
+}
+.trackHeading > span {
+  font: 10px/1.5 var(--font-mono);
+  color: #a7b2c7;
+  flex-shrink: 0;
+}
+.trackBlock .cardSlot {
+  width: calc(var(--card-height) * 9 / 16);
+}
+.trackBlock .cardSlot[data-orientation='landscape'] {
+  width: calc(var(--card-height) * 16 / 9);
+}
+.trackBlock .card {
+  height: var(--card-height);
+}
+.card img.rotatedPoster {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56.25%;
+  height: 177.777778%;
+  max-inline-size: none;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover img.rotatedPoster {
+    transform: translate(-50%, -50%) rotate(-90deg) scale(1.03);
+  }
+}
+@media (max-width: 767px) {
+  .trackHeading {
+    flex-direction: column;
+    align-items: start;
+    gap: 6px;
+  }
+}
+@media (min-width: 768px) {
+  .trackHeading {
+    padding-inline: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .tracks {
+    --card-height: 240px;
+    gap: 64px;
+  }
+  .trackHeading {
+    padding-inline: 64px;
+  }
+}
+@media (max-width: 359px) {
+  .trackHeading {
+    padding-inline: 16px;
+  }
+}

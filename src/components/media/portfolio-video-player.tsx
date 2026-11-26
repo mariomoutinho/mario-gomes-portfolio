@@ -1,7 +1,8 @@
-﻿import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import type { PortfolioWork } from '../../data/portfolio';
 import styles from './portfolio-video-player.module.css';
+import { ResponsiveVideo } from './responsive-video';
 export function PortfolioVideoPlayer({
   work,
   onClose,
@@ -57,7 +58,16 @@ export function PortfolioVideoPlayer({
             <X />
           </button>
         </div>
-        {work.videoSrc ? (
+        {work.videoSrc && work.rotateToLandscape ? (
+          <ResponsiveVideo
+            source={{
+              src: work.videoSrc,
+              poster: work.posterSrc,
+              description: work.title,
+              rotateToLandscape: true,
+            }}
+          />
+        ) : work.videoSrc ? (
           <video
             key={work.id}
             className={styles.media}
