@@ -328,3 +328,9 @@ Resultado final: npm run check aprovado (formatação, lint, cinco testes Vitest
 Usuário autorizou expressamente o push da prévia: inclui reformulação da seção Processo e remoção das legendas de orientação no Portfólio. Mantidos os resultados de check e E2E registrados acima, sem alterações adicionais de implementação. Envio na branch feat/cinematic-landing, sem merge na main.
 
 Publicação confirmada: commit 3344eeb enviado para origin/feat/cinematic-landing. Workflow https://github.com/mariomoutinho/mario-gomes-portfolio/actions/runs/45820390837 aprovado. Homologação no site público em 390px e 1440px confirmou novo cabeçalho, aviso permanente sobre captação pelo cliente, cinco seletores, seleção de Entrega com descrição atualizada, ausência das legendas Horizontal/Vertical no Portfólio e ausência de overflow horizontal. Registro posterior enviado com [skip ci].
+
+## Serviços sem legendas de orientação — 26/11/2026
+
+Removidas as indicações Horizontal e Vertical dos cinco cards da seção 04 — Serviços e o CSS utilizado exclusivamente por essas legendas. Mantidos nomes, descrições, animação e interações da esteira. Nenhuma dependência nova. Continuidade da remoção já publicada no Portfólio; envio conforme autorização permanente de push, após validação.
+
+Validação: npm run check aprovado (formatação, lint, cinco testes Vitest, tipagem e build). npm run test:e2e -- tests/e2e/services.spec.ts aprovado: nove execuções em 17,6 segundos; teste exclusivo de toque ignorado no desktop e aprovado no mobile. Layout em 320, 390 e 1440px, navegação horizontal por teclado, ausência de overflow e comportamento da animação aprovados. Sem teste em aparelho físico.
