@@ -1,4 +1,4 @@
-﻿.viewport {
+.viewport {
   overflow-x: auto;
   scrollbar-width: none;
   overscroll-behavior-x: contain;
@@ -20,9 +20,13 @@
 .viewport[data-running='true'] .belt {
   animation-play-state: running;
 }
-.viewport:hover .belt,
-.viewport:focus-within .belt {
+.viewport:focus-visible .belt {
   animation-play-state: paused;
+}
+@media (hover: hover) and (pointer: fine) {
+  .viewport:hover .belt {
+    animation-play-state: paused;
+  }
 }
 .group {
   display: flex;

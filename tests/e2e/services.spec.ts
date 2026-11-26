@@ -43,3 +43,24 @@ test('esteira de formatos avança, pausa com foco e respeita aba oculta', async 
   });
   await expect.poll(state).toBe('paused');
 });
+
+test('toque no celular não mantém a esteira de formatos pausada', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Verificação de interação com tela sensível ao toque.');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const formats = page.getByRole('region', { name: 'Formatos de edição de vídeo' });
+  const belt = formats.locator(':scope > div');
+  await formats.scrollIntoViewIfNeeded();
+  await formats.tap();
+  await expect
+    .poll(() => belt.evaluate((node) => node.getAnimations()[0]?.playState))
+    .toBe('running');
+  const before = await belt.evaluate(
+    (node) => new DOMMatrixReadOnly(getComputedStyle(node).transform).m41,
+  );
+  await expect
+    .poll(() =>
+      belt.evaluate((node) => new DOMMatrixReadOnly(getComputedStyle(node).transform).m41),
+    )
+    .toBeLessThan(before - 10);
+});

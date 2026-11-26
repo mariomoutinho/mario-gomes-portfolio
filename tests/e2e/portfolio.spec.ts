@@ -276,3 +276,26 @@ test('Wedding Film abre o casamento real na orientação correta', async ({ page
   await expect(dialog).not.toBeVisible();
   await expect(card).toBeFocused();
 });
+
+test('cada categoria começa a se mover ao entrar na tela do celular', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, 'Verificação de rolagem em tela sensível ao toque.');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await openPortfolio(page);
+  for (const id of [
+    'portfolio-wedding-film',
+    'portfolio-xv-anos',
+    'portfolio-after-movie',
+    'portfolio-cultural',
+    'portfolio-corporativo-institucional',
+  ]) {
+    await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+    await expect.poll(async () => (await animationState(page, id)).state).toBe('running');
+    const before = await animationState(page, id);
+    await expect
+      .poll(async () => Math.abs((await animationState(page, id)).x - before.x))
+      .toBeGreaterThan(10);
+  }
+});
